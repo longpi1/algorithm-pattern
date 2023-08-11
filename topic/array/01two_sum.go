@@ -34,8 +34,22 @@ func twoSum(nums []int, target int)(int, int){
 	return 0, 0
 }
 
+func twoSum1(nums []int, target int) []int {
+	tmp := make(map[int]int,len(nums))
+	for i :=0; i<len(nums);i++{
+
+		tmp1 := target - nums[i]
+		if _,ok:=tmp[tmp1];ok {
+			tmp2 := tmp[tmp1]
+			return []int{tmp2,i}
+		}
+		tmp[nums[i]] = i
+	}
+	return nil
+}
+
 func main()  {
-	nums := []int{2, 7, 11, 15}
-	target := 9
-	print(twoSum(nums,target))
+	nums := []int{3,2,4}
+	target := 6
+	print(twoSum1(nums,target))
 }
