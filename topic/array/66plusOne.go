@@ -35,27 +35,27 @@ import (
 0 <= digits[i] <= 9
 */
 
-//func plusOne(digits []int) []int {
-//	n := len(digits)
-//	var count int
-//	result := make([]int,n)
-//
-//	for i := 0; i < n ; i++ {
-//		count = count + digits[i] *  int(math.Pow(10,float64(n-i -1)))
-//	}
-//	count = count + 1
-//	for i := 0; i <n ; i++ {
-//		size := count / int(math.Pow(10,float64(n-i -1)))
-//		count = count - size * int(math.Pow(10,float64(n-i -1)))
-//		if size == 10 {
-//			result[i] = 0
-//			result[i+1] = 1
-//			continue
-//		}
-//		result[i] = size
-//	}
-//	return result
-//}
+/*func plusOne(digits []int) []int {
+	n := len(digits)
+	var count int
+	result := make([]int,n)
+
+	for i := 0; i < n ; i++ {
+		count = count + digits[i] *  int(math.Pow(10,float64(n-i -1)))
+	}
+	count = count + 1
+	for i := 0; i <n ; i++ {
+		size := count / int(math.Pow(10,float64(n-i -1)))
+		count = count - size * int(math.Pow(10,float64(n-i -1)))
+		if size == 10 {
+			result[i] = 0
+			result[i+1] = 1
+			continue
+		}
+		result[i] = size
+	}
+	return result
+}*/
 
 /*
 上述代码错误，错误原因如下：

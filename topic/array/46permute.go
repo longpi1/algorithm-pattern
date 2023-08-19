@@ -63,33 +63,33 @@ func backtrack(选择列表,路径):
 ```
 */
 
-//func permute(nums []int) (ans [][]int) {
-//	n := len(nums)
-//	var path []int
-//	dfs := func() {}
-//	used := make(map[int]bool, n)
-//	dfs = func() {
-//		if len(path) == n {
-//			tmp := make([]int, n)
-//			tmp = path
-//			ans = append(ans, tmp)
-//			return
-//		}
-//		for i := 0; i < len(nums); i++ {
-//			if !used[i]{
-//				used[i] = true
-//				path = append(path, nums[i])
-//				dfs()
-//				used[i] = false
-//				path = path[:len(path)-1]
-//			}
-//
-//		}
-//	}
-//	dfs()
-//
-//	return
-//}
+/*func permute(nums []int) (ans [][]int) {
+	n := len(nums)
+	var path []int
+	dfs := func() {}
+	used := make(map[int]bool, n)
+	dfs = func() {
+		if len(path) == n {
+			tmp := make([]int, n)
+			tmp = path
+			ans = append(ans, tmp)
+			return
+		}
+		for i := 0; i < len(nums); i++ {
+			if !used[i]{
+				used[i] = true
+				path = append(path, nums[i])
+				dfs()
+				used[i] = false
+				path = path[:len(path)-1]
+			}
+
+		}
+	}
+	dfs()
+
+	return
+}*/
 
 /*
 上述代码问题：

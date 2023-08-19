@@ -73,21 +73,21 @@ package main
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 
-//func nextPermutation(nums []int)  {
-//	var flag bool
-//	for i := 0; i < len(nums); i++ {
-//		if i+1 < len(nums) && nums[i+1] < nums[i] {
-//			tmp := nums[i+1]
-//			nums[i+1] = nums[i]
-//			nums[i]  = tmp
-//			break
-//		}
-//		if !flag {
-//			sort.Ints(nums)
-//		}
-//	}
-//
-//}
+/*func nextPermutation(nums []int)  {
+	var flag bool
+	for i := 0; i < len(nums); i++ {
+		if i+1 < len(nums) && nums[i+1] < nums[i] {
+			tmp := nums[i+1]
+			nums[i+1] = nums[i]
+			nums[i]  = tmp
+			break
+		}
+		if !flag {
+			sort.Ints(nums)
+		}
+	}
+
+}*/
 //// 上述思路错误；
 
 

@@ -72,38 +72,38 @@ func backtrack(选择列表,路径):
 ```
 */
 
-//func combinationSum(candidates []int, target int) [][]int {
-//	var ans [][]int
-//	n := len(candidates)
-//	dfs := func(int) {}
-//	var result []int
-//	temp := target
-//	dfs = func(temp int) {
-//		if temp < 0 {
-//			return
-//		}
-//		if temp ==0 {
-//			tmp := make([]int, len(result))
-//			copy(tmp ,result)
-//			ans = append(ans, tmp)
-//			return
-//		}
-//		for i := 0; i < n ; i++ {
-//			if candidates[i] == 0 {
-//				continue
-//			}
-//			temp = temp - candidates[i]
-//
-//			result = append(result, candidates[i])
-//			dfs(temp)
-//			temp = temp + candidates[i]
-//			result = result[:n-1]
-//		}
-//	}
-//	dfs(temp)
-//
-//	return ans
-//}
+/*func combinationSum(candidates []int, target int) [][]int {
+	var ans [][]int
+	n := len(candidates)
+	dfs := func(int) {}
+	var result []int
+	temp := target
+	dfs = func(temp int) {
+		if temp < 0 {
+			return
+		}
+		if temp ==0 {
+			tmp := make([]int, len(result))
+			copy(tmp ,result)
+			ans = append(ans, tmp)
+			return
+		}
+		for i := 0; i < n ; i++ {
+			if candidates[i] == 0 {
+				continue
+			}
+			temp = temp - candidates[i]
+
+			result = append(result, candidates[i])
+			dfs(temp)
+			temp = temp + candidates[i]
+			result = result[:n-1]
+		}
+	}
+	dfs(temp)
+
+	return ans
+}*/
 
 /*
 上述思路此外：原因如下：

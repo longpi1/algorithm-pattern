@@ -78,36 +78,36 @@ func backtrack(选择列表,路径):
 
 
 
-//func combinationSum2(candidates []int, target int) [][]int {
-//	var ans [][]int
-//	var path []int
-//	n := len(candidates)
-//	used := make(map[int]bool, n)
-//	dfs := func(int) {}
-//	dfs = func(tmp int) {
-//		if tmp < 0 {
-//			return
-//		}
-//		if tmp == 0{
-//			var tmp []int
-//			copy(tmp, path)
-//			ans = append(ans, tmp)
-//		}
-//		for i := 0; i < n; i++ {
-//			if !used[i] {
-//				tmp = tmp - candidates[i]
-//				path = append(path, candidates[i])
-//				used[i] = true
-//				dfs(tmp)
-//				used[i] = false
-//				tmp = tmp + candidates[i]
-//				path = path[:len(path)-1]
-//			}
-//		}
-//	}
-//	dfs(target)
-//	return ans
-//}
+/*func combinationSum2(candidates []int, target int) [][]int {
+	var ans [][]int
+	var path []int
+	n := len(candidates)
+	used := make(map[int]bool, n)
+	dfs := func(int) {}
+	dfs = func(tmp int) {
+		if tmp < 0 {
+			return
+		}
+		if tmp == 0{
+			var tmp []int
+			copy(tmp, path)
+			ans = append(ans, tmp)
+		}
+		for i := 0; i < n; i++ {
+			if !used[i] {
+				tmp = tmp - candidates[i]
+				path = append(path, candidates[i])
+				used[i] = true
+				dfs(tmp)
+				used[i] = false
+				tmp = tmp + candidates[i]
+				path = path[:len(path)-1]
+			}
+		}
+	}
+	dfs(target)
+	return ans
+}*/
 /*
 上述代码问题：
 	1.var tmp []int
