@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
 给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
@@ -111,13 +114,14 @@ func backtrack(选择列表,路径):
 在创建要添加到ans数组的tmp副本时，赋值var tmp []int并随后的copy(tmp, path)是不正确的。你不能重新声明同名的变量，并且在调用copy之前，应该使用make创建一个新的切片。另外，tmp应该是一个局部变量。以下是修复后的代码：
 2.要避免重复寻找，for循环i应该通过变量传递，也就是startIndex,for i := 也就是startIndex; i < n ; i++ {错误；
 
-3.
+3.去重操作 used[i - 1] == false，说明同一树层candidates[i - 1]使用过，切记是树层
 
 */
 
 func combinationSum2(candidates []int, target int) [][]int {
 	var ans [][]int
 	var path []int
+	sort.Ints(candidates)
 	n := len(candidates)
 	used := make(map[int]bool, n)
 	dfs := func(int,int) {}
@@ -132,8 +136,16 @@ func combinationSum2(candidates []int, target int) [][]int {
 		}
 		for i := index; i < n; i++ {
 			if !used[i] {
+				// 去重操作
+				// used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
+				// used[i - 1] == false，说明同一树层candidates[i - 1]使用过
+				// 一个是树枝一个是树层！！！
+				if i > 0 && candidates[i] == candidates[i-1]  && used[i-1] == false {
+					continue
+				}
 				tmp = tmp - candidates[i]
 				path = append(path, candidates[i])
+
 				used[i] = true
 				dfs(tmp,i)
 				used[i] = false
@@ -142,12 +154,13 @@ func combinationSum2(candidates []int, target int) [][]int {
 			}
 		}
 	}
+
 	dfs(target, 0)
 	return ans
 }
 
 func main()  {
-	candidates := []int{2,3,6,7}
-	target := 7
+	candidates := []int{2,5,2,1,2}
+	target := 5
 	fmt.Printf("result:%v",combinationSum2(candidates,target))
 }
