@@ -109,7 +109,7 @@ func permute(nums []int) (ans [][]int) {
 			ans = append(ans, tmp)
 			return
 		}
-		for i := 0; i < len(nums); i++ {
+		for i := 0; i < n; i++ {
 			if !used[i]{
 				used[i] = true
 				path = append(path, nums[i])
