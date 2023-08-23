@@ -73,28 +73,47 @@ package main
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 
-//func nextPermutation(nums []int)  {
-//	var flag bool
-//	for i := 0; i < len(nums); i++ {
-//		if i+1 < len(nums) && nums[i+1] < nums[i] {
-//			tmp := nums[i+1]
-//			nums[i+1] = nums[i]
-//			nums[i]  = tmp
-//			break
-//		}
-//		if !flag {
-//			sort.Ints(nums)
-//		}
-//	}
-//
-//}
+/*func nextPermutation(nums []int)  {
+	var flag bool
+	for i := 0; i < len(nums); i++ {
+		if i+1 < len(nums) && nums[i+1] < nums[i] {
+			tmp := nums[i+1]
+			nums[i+1] = nums[i]
+			nums[i]  = tmp
+			break
+		}
+		if !flag {
+			sort.Ints(nums)
+		}
+	}
+
+}*/
 //// 上述思路错误；
 
-func nextPermutation(nums []int)  {
 
+
+func nextPermutation(nums []int) {
+	i, j := 0, 0
+	for i = len(nums) - 2; i >= 0; i-- {
+		if nums[i] < nums[i+1] {
+			break
+		}
+	}
+	if i >= 0 {
+		for j = len(nums) - 1; j > i; j-- {
+			if nums[j] > nums[i] {
+				break
+			}
+		}
+		nums[i] ,nums[j]= nums[j],nums[i]
+	}
+	for n ,m:= i+1,len(nums)-1; n<=m; n , m= n+1, m-1{
+		nums[m] ,nums[n]= nums[n],nums[m]
+	}
 }
+
 
 func main(){
 	nums := []int{1,2,3}
-
+	nextPermutation(nums)
 }
