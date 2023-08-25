@@ -205,6 +205,7 @@ func (this *MyLinkedList) DeleteAtIndex(index int)  {
 
 
 // 双链表做法：
+// 优点，get或者插入index时，可以判断index离头部近还是尾部近，选择按头或者尾部遍历
 type node struct {
 	val        int
 	next, prev *node
