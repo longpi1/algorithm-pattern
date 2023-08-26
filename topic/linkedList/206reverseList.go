@@ -62,6 +62,7 @@ package main
 
 */
 
+//迭代+双指针
 func reverseList(head *ListNode) *ListNode {
 	cur := head
 	// 不应该初始pre为&ListNode{},应该直接var定义变量即可
@@ -78,4 +79,18 @@ func reverseList(head *ListNode) *ListNode {
 	return pre
 	// 不应该返回head,最后返回新的头引用pre
 	//return head
+}
+
+
+// 递归（判断是否有最小子问题）
+func reverseList(head *ListNode) *ListNode {
+	// 1. 递归终止条件
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var p = reverseList(head.Next)
+	//反转
+	head.Next.Next = head
+	head.Next = nil
+	return p
 }

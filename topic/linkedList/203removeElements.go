@@ -9,10 +9,10 @@ import "fmt"
 *     Next *ListNode
 * }
 */
-type ListNode struct {
-	Val int
-	Next *ListNode
-}
+//type ListNode struct {
+//	Val int
+//	Next *ListNode
+//}
 /*func removeElements(head *ListNode, val int) *ListNode {
 	if head == nil {
 		return head
