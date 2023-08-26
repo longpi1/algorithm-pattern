@@ -82,9 +82,9 @@ func reverseList(head *ListNode) *ListNode {
 }
 
 
-// 递归（判断是否有最小子问题）
+// 递归（判断是否有最小子问题）递归最主要找边界条件与非边界条件，最后得到就i是最小子问题的结果
 func reverseList(head *ListNode) *ListNode {
-	// 1. 递归终止条件
+	// 1. 递归终止条件也就是边界条件
 	if head == nil || head.Next == nil {
 		return head
 	}
