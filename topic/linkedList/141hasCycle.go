@@ -33,10 +33,7 @@ pos 为 -1 或者链表中的一个 有效索引 。
 
 */
 
-type ListNode struct {
-	Val int
-	Next *ListNode
-}
+
 // 双指针，（快慢指针的思路）
 func hasCycle(head *ListNode) bool {
 	if head == nil || head.Next == nil{
