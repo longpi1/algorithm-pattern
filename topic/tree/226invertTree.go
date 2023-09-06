@@ -23,12 +23,6 @@ package main
 
 
 
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
-
 //前序遍历实现
 func invertTree(root *TreeNode) *TreeNode {
 	if root == nil{
