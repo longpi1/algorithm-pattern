@@ -23,11 +23,7 @@ import "math"
 树中节点数的范围在 [0, 105] 内
 -1000 <= Node.val <= 1000
 */
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
+
 // 基于队列层序遍历，也就是广度优先遍历
 func minDepth(root *TreeNode) int {
 	if root == nil {
