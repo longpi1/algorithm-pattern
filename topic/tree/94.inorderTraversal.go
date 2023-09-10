@@ -115,11 +115,12 @@ func inorderTraversal(root *TreeNode) []int {
 		res = append(res, node.Val)
 		// 5.然后，将 node 的右子节点（如果存在）赋值给 root，并进入一个新的循环。这个新循环将当前节点 root 的右子树上的所有节点都入栈，直到没有右子节点为止。
 		node = node.Right
-		// 6此时，栈顶节点的左子树和右子树都已经被处理，继续出栈，添加到结果切片中。
+
 		for node != nil {
 			stack = append(stack, node)
 			node = node.Left
 		}
+		// 6此时，栈顶节点的左子树和右子树都已经被处理，继续出栈，添加到结果切片中。
 	}
 	return res
 }

@@ -1,5 +1,6 @@
 package main
 
+import "math"
 
 /*
 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
@@ -19,11 +20,7 @@ package main
 输出：false
 解释：根节点的值是 5 ，但是右子节点的值是 4 。
 */
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
+
 /*func isValidBST(root *TreeNode) bool {
 	if root == nil {
 		return true
@@ -58,35 +55,65 @@ func isVaild(root *TreeNode) bool {
 
 /*
 解题思路：
-
+基于中序遍历解题，因为二叉搜索树中序遍历结果为从小到大
 */
+//基于中序遍历解题，因为二叉搜索树中序遍历结果为从小到大
 func isValidBST(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
-
-
-	return isVaild(root)
+	//这里不应该初始化
+	//pre := &TreeNode{}
+	var pre *TreeNode
+	// 调用辅助函数 isVaild 来验证二叉搜索树的有效性
+	return isVaild(root,&pre)
 }
 
-func isVaild(root *TreeNode) bool {
+func isVaild(root *TreeNode,pre **TreeNode) bool {
 	if root == nil {
 		return true
 	}
-	if root.Left != nil {
-		if root.Val <= root.Left.Val {
-			return false
-		}
+	// 递归验证左子树
+	flag1 := isVaild(root.Left,pre)
+	if *pre != nil && root.Val <= (*pre).Val {
+		return false
 	}
-	if root.Right != nil {
-		if root.Val >= root.Right.Val {
-			return false
-		}
-	}
-	return isVaild(root.Left) && isVaild(root.Right)
+	//在 Go 中，函数参数是按值传递的，这意味着在 isVaild 函数中的 pre 变量实际上是 root 的一个副本，而不是指向同一个内存位置的指针。因此，你的 pre 副本不会在函数内部正确地跟踪前一个节点。
+	//pre = root
+
+	// 将 pre 参数改为指向指针的指针 **TreeNode，这样可以在递归调用中正确地更新前一个节点的值。这样的修改可以确保你正确地检查二叉搜索树的有效性。
+	*pre = root
+	// 递归验证右子树
+	flag2 := isVaild(root.Right, pre)
+
+	// 返回左子树和右子树的验证结果的逻辑与
+	return flag1 && flag2
 }
 
+
+// 其他思路
+func isValidBST(root *TreeNode) bool {
+	stack := []*TreeNode{}
+	inorder := math.MinInt64
+	for len(stack) > 0 || root != nil {
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+		root = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if root.Val <= inorder {
+			return false
+		}
+		inorder = root.Val
+		root = root.Right
+	}
+	return true
+}
+
+
 func main()  {
-	root :=	&TreeNode{Val: 5,Left: &TreeNode{Val: 4},Right: &TreeNode{Val: 6,Left: &TreeNode{Val: 3},Right: &TreeNode{Val: 7}}}
+	//root :=	&TreeNode{Val: 5,Left: &TreeNode{Val: 4},Right: &TreeNode{Val: 6,Left: &TreeNode{Val: 3},Right: &TreeNode{Val: 7}}}
+	root :=	&TreeNode{Val: 2,Left: &TreeNode{Val: 2}}
 	print(isValidBST(root))
 }
