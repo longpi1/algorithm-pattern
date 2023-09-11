@@ -14,3 +14,48 @@ package main
 输出: [-1]
 
 */
+
+
+/*
+解题思路：
+第一步：如果数组大小为零的话，说明是空节点了。
+
+第二步：如果不为空，那么取前序数组第一个元素作为节点元素。
+
+第三步：找到前序数组第一个元素在中序数组的位置，作为切割点
+
+第四步：切割中序数组，切成中序左数组和中序右数组 （顺序别搞反了，一定是先切中序数组）
+
+第五步：切割前序数组，切成前序左数组和前序右数组
+
+第六步：递归处理左区间和右区间
+*/
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	//根节点
+	node := &TreeNode{Val: preorder[0]}
+	index := 0
+	for i := index; i < len(preorder); index++ {
+		if inorder[index] == preorder[0] {
+			break
+		}
+	}
+	// 分割中序
+	leftInorder := inorder[:index]
+	rightInorder := inorder[index+1:]
+	// 分割前序
+	leftPreorder := preorder[1:index+1]
+	rightPreorder := preorder[index+1:]
+	node.Left = buildTree(leftPreorder,leftInorder)
+	node.Right = buildTree(rightPreorder,rightInorder)
+	return node
+}
+
+
+func main(){
+	preorder := []int{3,9,20,15,7}
+	inorder := []int{9,3,15,20,7}
+	buildTree(preorder,inorder)
+}

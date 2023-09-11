@@ -20,11 +20,7 @@ package main
 输入：root = [0]
 输出：[0]
 */
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
+
 /*
 在代码中，传递了 result 切片的指针 *[]int，因为你要在 preTraversal 函数中修改 result 切片的内容。虽然数组是引用类型，但在 Go 中，切片是动态数组，它的长度可以动态增长，而数组的长度是固定的。
 因此，如果你希望在函数内部添加元素到切片中，你需要传递切片的指针。
