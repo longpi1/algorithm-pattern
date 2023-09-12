@@ -37,5 +37,30 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	return right
 }
 
-// 其他思路：
+// 详细版本：
+func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	// check
+	if root == nil {
+		return nil
+	}
+	// 相等 直接返回root节点即可
+	if root == p || root == q {
+		return root
+	}
+	// Divide
+	left := lowestCommonAncestor(root.Left, p, q)
+	right := lowestCommonAncestor(root.Right, p, q)
 
+	// Conquer
+	// 左右两边都不为空，则根节点为祖先
+	if left != nil && right != nil {
+		return root
+	}
+	if left != nil {
+		return left
+	}
+	if right != nil {
+		return right
+	}
+	return nil
+}
