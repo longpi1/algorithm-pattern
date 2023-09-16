@@ -72,12 +72,6 @@ func rob(nums []int) int {
 	return dp[n-1]
 }
 
-func max(a int, b int) int {
-	if a >b {
-		return a
-	}
-	return b
-}
 
 func main(){
 	nums := []int{2,7,9,3,1}

@@ -42,11 +42,4 @@ func rob(nums []int) int {
 	return max(dfs(nums[:n-1]), dfs(nums[1:]))
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 

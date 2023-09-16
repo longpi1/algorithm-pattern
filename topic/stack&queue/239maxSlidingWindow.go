@@ -110,35 +110,44 @@ import (
 */
 
 // 单调递减队列
-func push(queue []int, val int) []int{
+// push 函数用于维护一个单调递减队列，新元素 val 会将队列中小于 val 的元素弹出
+func push(queue []int, val int) []int {
 	for len(queue) != 0 && val > queue[len(queue)-1] {
 		queue = queue[:len(queue)-1]
 	}
 	queue = append(queue, val)
-	// 这里需要返回，负责外面的queue队列并没有修改
+	// 返回更新后的队列
 	return queue
 }
 
+// maxSlidingWindow 函数用于计算滑动窗口中的最大值
 func maxSlidingWindow(nums []int, k int) []int {
 	n := len(nums)
-	result := make([]int,0)
-	//定义单调递减的队列
+	result := make([]int, 0)
+	// 定义一个单调递减的队列
 	queue := make([]int, 0)
 
+	// 初始化滑动窗口中的第一个窗口
 	for i := 0; i < k; i++ {
-		queue = push(queue,nums[i])
+		queue = push(queue, nums[i])
 	}
+	// 将第一个窗口的最大值加入结果数组
 	result = append(result, queue[0])
 
+	// 遍历滑动窗口
 	for i := 1; i < n-k+1; i++ {
+		// 移除窗口的第一个元素，如果它等于队列的最大值
 		if nums[i-1] == queue[0] {
 			queue = queue[1:]
 		}
-		queue = push(queue,nums[i+k-1])
+		// 将新的元素加入窗口并维护单调递减队列
+		queue = push(queue, nums[i+k-1])
+		// 将队列中的最大值加入结果数组
 		result = append(result, queue[0])
 	}
 	return result
 }
+
 
 func main(){
 	//nums := []int{1,3,-1,-3,5,3,6,7}
