@@ -86,7 +86,7 @@ func canPartition(nums []int) bool {
 	for i := 0; i < n; i++ {
 		// 倒序遍历 dp 数组，从大到小更新子集的和值
 		for j := count; j >= nums[i]; j-- {
-			dp[j] = max(dp[j], dp[j-nums[i]]+nums[i])
+			dp[j] = max3(dp[j], dp[j-nums[i]]+nums[i])
 		}
 	}
 
@@ -97,7 +97,7 @@ func canPartition(nums []int) bool {
 	return false
 }
 
-func max(a, b int) int {
+func max3(a, b int) int {
 	if a > b {
 		return a
 	}
