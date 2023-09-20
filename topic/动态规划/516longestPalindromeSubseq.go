@@ -71,29 +71,31 @@ for (int i = 0; i < s.size(); i++) dp[i][i] = 1;
 递推公式：dp[i][j] = dp[i + 1][j - 1] + 2，dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]) 分别对应着下图中的红色箭头方向，如图：
 */
 func longestPalindromeSubseq(s string) int {
-	lenth:=len(s)
-	dp:=make([][]int,lenth)
-	for i:=0;i<lenth;i++{
-		for j:=0;j<lenth;j++{
-			if dp[i]==nil{
-				dp[i]=make([]int,lenth)
+	length := len(s) // 获取输入字符串的长度
+	dp := make([][]int, length) // 创建一个二维动态规划数组，dp[i][j]表示从索引i到j的子序列的最长回文子序列长度
+	for i := 0; i < length; i++ {
+		for j := 0; j < length; j++ {
+			if dp[i] == nil {
+				dp[i] = make([]int, length)
 			}
-			if i==j{
-				dp[i][j]=1
-			}
-		}
-	}
-	for i :=lenth-1;i>=0;i--{
-		for j:=i+1;j<lenth;j++{
-			if s[i]==s[j]{
-				dp[i][j]=dp[i+1][j-1]+2
-			}else {
-				dp[i][j]=max(dp[i+1][j],dp[i][j-1])
+			if i == j {
+				dp[i][j] = 1 // 初始化长度为1的子序列为回文子序列，即单个字符
 			}
 		}
 	}
 
-	return dp[0][lenth-1]
+	// 动态规划求解最长回文子序列的长度
+	for i := length - 1; i >= 0; i-- {
+		for j := i + 1; j < length; j++ {
+			if s[i] == s[j] {
+				dp[i][j] = dp[i+1][j-1] + 2 // 如果s[i]等于s[j]，则最长回文子序列长度+2
+			} else {
+				dp[i][j] = max(dp[i+1][j], dp[i][j-1]) // 否则，取相邻子序列的最长回文子序列长度的较大值
+			}
+		}
+	}
+
+	return dp[0][length-1] // 返回整个字符串的最长回文子序列的长度
 }
 
 func max(a, b int) int {
