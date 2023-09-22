@@ -1,30 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"reflect"
 	"sort"
 )
 
 /*
-题目 #
-Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+15. 三数之和
 
-Note:
+示例 1：
+输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+解释：
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+注意，输出的顺序和三元组的顺序并不重要。
+示例 2：
+输入：nums = [0,1,1]
+输出：[]
+解释：唯一可能的三元组和不为 0 。
+示例 3：
 
-The solution set must not contain duplicate triplets.
-
-Example:
-
-
-Given array nums = [-1, 0, 1, 2, -1, -4],
-
-A solution set is:
-[
-  [-1, 0, 1],
-  [-1, -1, 2]
-]
-
+输入：nums = [0,0,0]
+输出：[[0,0,0]]
+解释：唯一可能的三元组和为 0 。
 题目大意 #
 给定一个数组，要求在这个数组中找出 3 个数之和为 0 的所有组合。
 解题思路 #
@@ -44,11 +45,48 @@ A solution set is:
 
 第三重循环枚举到的元素不小于当前第二重循环枚举到的元素。
 
-作者：力扣官方题解
-链接：https://leetcode.cn/problems/3sum/solutions/284681/san-shu-zhi-he-by-leetcode-solution/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
+func threeSum(nums []int) [][]int {
+	result := make([][]int, 0) // 用于存储结果的切片
+	n := len(nums)
+	sort.Ints(nums) // 对数组进行升序排序
+
+	for i := 0; i < n; i++ {
+		if i > 0 && nums[i-1] == nums[i] {
+			continue // 避免重复处理相同的数字
+		}
+		left, right := i+1, n-1 // 左右指针分别指向当前数字后面的第一个和最后一个数字
+		for left < right {
+			if right < n-1 && nums[right] == nums[right+1] {
+				right--
+				continue // 避免重复处理相同的数字
+			}
+			if left > i+1 && nums[left-1] == nums[left] {
+				left++
+				continue // 避免重复处理相同的数字
+			}
+			if 0-nums[i]-nums[left] == nums[right] {
+				result = append(result, []int{nums[i], nums[left], nums[right]})
+			}
+			if 0-nums[i]-nums[left] > nums[right] {
+				left++
+			} else {
+				right--
+			}
+		}
+	}
+
+	return result
+}
+
+
+func main(){
+	nums := []int{0,0,0,0}
+	threeSum(nums)
+}
+
+
+
 
 
 func containsList(lists [][]int, newList []int) bool {
@@ -128,7 +166,7 @@ func containsList(lists [][]int, newList []int) bool {
 //	return ans
 //}
 
-func threeSum(nums []int) [][]int {
+func threeSum1(nums []int) [][]int {
 	var result [][]int
 	sort.Ints(nums)
 	for i := 0; i<len(nums); i++{
@@ -160,8 +198,8 @@ func threeSum(nums []int) [][]int {
 	}
 	return result
 }
-
-func main(){
-	nums := []int{34,55,79,28,46,33,2,48,31,-3,84,71,52,-3,93,15,21,-43,57,-6,86,56,94,74,83,-14,28,-66,46,-49,62,-11,43,65,77,12,47,61,26,1,13,29,55,-82,76,26,15,-29,36,-29,10,-70,69,17,49}
-	fmt.Printf("result: %v",threeSum(nums))
-}
+//
+//func main(){
+//	nums := []int{34,55,79,28,46,33,2,48,31,-3,84,71,52,-3,93,15,21,-43,57,-6,86,56,94,74,83,-14,28,-66,46,-49,62,-11,43,65,77,12,47,61,26,1,13,29,55,-82,76,26,15,-29,36,-29,10,-70,69,17,49}
+//	fmt.Printf("result: %v",threeSum(nums))
+//}

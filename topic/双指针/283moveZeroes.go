@@ -48,11 +48,11 @@ func moveZeroes(nums []int) {
 			left++
 		}
 	}
-	// 在末尾填充零元素
-	for left < n {
-		nums[left] = 0
-		left++
-	}
+	//// 在末尾填充零元素
+	//for left < n {
+	//	nums[left] = 0
+	//	left++
+	//}
 }
 
 /*
@@ -64,14 +64,19 @@ func moveZeroes(nums []int) {
 慢指针：指向更新 新数组下标的位置
 */
 func moveZeroes(nums []int) {
-	slowIndex := 0
+	slowIndex := 0 // 慢指针，用于记录当前非零元素应该存放的位置
+
+	// 遍历整个数组
 	for fastIndex := 0; fastIndex < len(nums); fastIndex++ {
-		if nums[fastIndex] != 0 {
+		if nums[fastIndex] != 0 { // 如果当前元素不是零
+			// 将当前非零元素与慢指针指向的位置的元素交换位置，
+			// 这样可以确保非零元素被依次移到数组的前面
 			nums[slowIndex], nums[fastIndex] = nums[fastIndex], nums[slowIndex]
-			slowIndex++
+			slowIndex++ // 慢指针向前移动
 		}
 	}
 }
+
 
 
 func main(){
