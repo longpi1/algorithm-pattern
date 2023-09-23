@@ -1,3 +1,5 @@
+基于开源项目添加个人的相关练习代码：https://github.com/greyireland/algorithm-pattern
+
 ## 重要技巧：画图+调式
 
 ### 数组：
