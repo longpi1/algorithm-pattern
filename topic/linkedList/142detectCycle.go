@@ -27,10 +27,6 @@ package main
 pos 的值为 -1 或者链表中的一个有效索引
 */
 
-type ListNode struct {
-	Val int
-	Next *ListNode
-}
 
 /*
 解题思路

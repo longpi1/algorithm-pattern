@@ -33,6 +33,23 @@ pos 为 -1 或者链表中的一个 有效索引 。
 
 */
 
+func hasCycle(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return false
+	}
+
+	slow, fast := head, head.Next
+
+	for fast != nil && fast.Next != nil {
+		if slow == fast {
+			return true
+		}
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	return false
+}
+
 
 // 双指针，（快慢指针的思路）
 func hasCycle(head *ListNode) bool {

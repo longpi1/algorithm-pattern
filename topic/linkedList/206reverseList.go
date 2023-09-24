@@ -62,6 +62,28 @@ package main
 
 */
 
+type ListNode struct {
+	Val int
+	Next *ListNode
+}
+func reverseList(head *ListNode) *ListNode {
+	dummyHead := &ListNode{Val: 0,Next: head}
+	newHead := dummyHead.Next
+	if newHead != nil || newHead.Next != nil {
+		tmp := newHead.Next
+		newHead.Next = newHead.Next.Next
+		tmp.Next = newHead
+		newHead = tmp
+	}
+
+	return head
+}
+
+
+
+
+
+
 //迭代+双指针
 func reverseList(head *ListNode) *ListNode {
 	cur := head

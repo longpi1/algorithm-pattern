@@ -29,6 +29,11 @@ package main
 1 <= n <= sz
 */
 
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+
+
+}
 //直接先遍历求得总长度，然后再求倒数n个的位置
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	dummyHead := &ListNode{Next: head}
@@ -57,7 +62,7 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 在这之后，我们同时使用 first 和 second对链表进行遍历。当 first 遍历到链表的末尾（即 first 为空指针）时，second 恰好指向倒数第 nnn 个节点。
 根据方法一和方法二，如果我们能够得到的是倒数第 nnn 个节点的前驱节点而不是倒数第 nnn 个节点的话，删除操作会更加方便。因此我们可以考虑在初始时将 second 指向哑节点，其余的操作步骤不变。这样一来，当 first 遍历到链表的末尾时，second 的下一个节点就是我们需要删除的节点。
 */
-/*func removeNthFromEnd(head *ListNode, n int) *ListNode {
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	dummy := &ListNode{0, head}
 	first, second := head, dummy
 	for i := 0; i < n; i++ {
@@ -68,7 +73,21 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	second.Next = second.Next.Next
 	return dummy.Next
-}*/
+}
+
+/*
+*/
+// 栈
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	nodes := []*ListNode{}
+	dummy := &ListNode{0, head}
+	for node := dummy; node != nil; node = node.Next {
+		nodes = append(nodes, node)
+	}
+	prev := nodes[len(nodes)-1-n]
+	prev.Next = prev.Next.Next
+	return dummy.Next
+}
 
 
 
