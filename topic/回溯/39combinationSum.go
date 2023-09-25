@@ -119,35 +119,40 @@ https://www.bilibili.com/video/BV1KT4y1M7HJ/?vd_source=34718180774b041b23050c868
 func combinationSum(candidates []int, target int) [][]int {
 	var ans [][]int
 	n := len(candidates)
-	dfs := func(int,int) {}
-	var result []int
-	temp := target
-	dfs = func(temp int,startIndex int) {
+
+	// 定义深度优先搜索函数，用于生成组合
+	var dfs func(temp int, startIndex int, result []int)
+
+	dfs = func(temp int, startIndex int, result []int) {
 		if temp < 0 {
 			return
 		}
-		if temp ==0 {
+		if temp == 0 {
+			// 如果目标值为0，表示找到了一个组合，将结果复制到临时切片并添加到答案中
 			tmp := make([]int, len(result))
-			copy(tmp ,result)
+			copy(tmp, result)
 			ans = append(ans, tmp)
 			return
 		}
-		for i := startIndex; i < n ; i++ {
+		for i := startIndex; i < n; i++ {
 			if candidates[i] == 0 {
-				continue
+				continue // 跳过候选列表中的0
 			}
-			temp = temp - candidates[i]
-
-			result = append(result, candidates[i])
-			dfs(temp,i)
-			temp = temp + candidates[i]
-			result = result[:len(result)-1]
+			temp = temp - candidates[i] // 尝试将当前候选值添加到组合中
+			result = append(result, candidates[i]) // 记录当前候选值
+			// 递归搜索下一个组合
+			dfs(temp, i, result)
+			temp = temp + candidates[i] // 回溯，将当前候选值从组合中移除
+			result = result[:len(result)-1] // 回溯，从结果中移除最后一个元素
 		}
 	}
-	dfs(temp,0)
+
+	// 初始化深度优先搜索
+	dfs(target, 0, []int{})
 
 	return ans
 }
+
 
 
 
