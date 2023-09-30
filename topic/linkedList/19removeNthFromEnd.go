@@ -29,11 +29,52 @@ package main
 1 <= n <= sz
 */
 
+/*func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	slow, quick := head,head
+	for i := 0; i < n; i ++ {
+		slow = slow.Next
+	}
+	for ;slow != nil;		slow = slow.Next  {
+
+		quick = quick.Next
+	}
+	quick.Next = quick.Next.Next
+	return head
+}*/
+//
+/*
+上述思路错误
+但是在处理特殊情况（即删除头节点）时，会出现空指针异常。
+当 n 等于链表的长度时，slow 移动到了最后一个节点，而 quick 移动到了倒数第 n+1 个节点，
+如果要删除的是头节点，quick.Next 将会是空指针。为了解决这个问题，
+需要为链表头节点添加一个虚拟节点，并在返回时返回虚拟节点的下一个节点。
+另外，为了确保链表的完整性，还需要添加对 slow.Next 是否为空的检查，以避免空指针异常。
+*/
+
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	// 添加虚拟头节点
+	dummy := &ListNode{0, head}
+	slow, quick := dummy, dummy
 
+	// 将 slow 移动到 n+1 个节点处
+	for i := 0; i <= n; i++ {
+		quick = quick.Next
+	}
 
+	// 同时移动 slow 和 quick，直到 quick 到达链表末尾
+	for quick != nil {
+		slow = slow.Next
+		quick = quick.Next
+	}
+
+	// 删除倒数第 n 个节点
+	slow.Next = slow.Next.Next
+
+	// 返回虚拟头节点的下一个节点，保持链表完整性
+	return dummy.Next
 }
+
 //直接先遍历求得总长度，然后再求倒数n个的位置
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	dummyHead := &ListNode{Next: head}

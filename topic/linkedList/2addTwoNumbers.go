@@ -18,6 +18,48 @@ package main
 输出：[8,9,9,9,0,0,0,1]
 */
 
+/*
+
+*/
+
+/*func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
+	cur := head
+	carry := 0
+	for l1 != nil && l2 != nil{
+
+		val1 := l1.Val
+		l1 = l1.Next
+
+		val2 := l2.Val
+		l1 = l1.Next
+
+		result := val2 + val1
+		val := result/10 + carry
+		carry = result%10
+		cur.Val = val
+		cur.Next = &ListNode{}
+		head = cur.Next
+	}
+	if carry != 0 {
+		if l1 != nil {
+			cur.Val
+		}
+		if l2 != nil {
+
+		}
+	}
+	for l1 != nil {
+		head.Next = l1
+	}
+
+	for l2 != nil {
+		head.Next = l2
+	}
+
+	return head
+}
+*/
+// 上述思路错误
 
 func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
 	var tail *ListNode // 用于追踪结果链表的尾部
@@ -38,7 +80,7 @@ func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
 		// 计算当前节点的和以及进位
 		sum := n1 + n2 + carry
 		sum, carry = sum % 10, sum / 10
-
+		// !!! 这一步很重要
 		// 创建新节点，并根据头部是否为空初始化头部或者追加到尾部
 		if head == nil {
 			head = &ListNode{Val: sum}
@@ -56,3 +98,6 @@ func addTwoNumbers(l1, l2 *ListNode) (head *ListNode) {
 
 	return head // 返回结果链表的头部
 }
+
+
+
