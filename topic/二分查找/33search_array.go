@@ -1,6 +1,8 @@
 package main
 
 /*
+33.搜索旋转排序数组
+
 整数数组 nums 按升序排列，数组中的值 互不相同 。
 
 在传递给函数之前，nums 在预先未知的某个下标 k（0 <= k < nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。
@@ -48,6 +50,7 @@ nums 中的每个值都 独一无二
     4. 最后一个小于等于x的下标：可以转换为`第一个大于等于 x+1 的下标` 的 `左边位置`, low_bound(x+1) - 1;
 */
 
+
 // 初始思路:
 func search(nums []int, target int) int {
 	n :=len(nums)
@@ -75,6 +78,40 @@ func search(nums []int, target int) int {
 	}
 
 	return -1
+}
+
+// 二分
+/*
+在每一步中，首先判断哪一部分是网格的（根据旋转的性质），然后检查目标值是否在网格的部分中。
+根据比较结果，调整左右指针的位置，从而实现在旋转排序阵列中的快速搜索。
+*/
+func search(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+
+	for left <= right {
+		mid := left + (right - left) / 2
+
+		if nums[mid] == target {
+			return mid
+		}
+
+		// 判断哪一部分是有序的
+		if nums[left] <= nums[mid] { // 左半部分有序
+			if nums[left] <= target && target < nums[mid] {
+				right = mid - 1
+			} else {
+				left = mid + 1
+			}
+		} else { // 右半部分有序
+			if nums[mid] < target && target <= nums[right] {
+				left = mid + 1
+			} else {
+				right = mid - 1
+			}
+		}
+	}
+
+	return -1 // 没找到目标值
 }
 
 // 其他思路：两次二分
