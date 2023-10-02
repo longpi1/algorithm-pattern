@@ -33,38 +33,48 @@ lRUCache.get(3);    // 返回 3
 lRUCache.get(4);    // 返回 4
 */
 
-
+/*
+采用了双向链表和哈希表的结合，使用双向链表维护缓存项的访问顺序，使用哈希表实现O(1)时间复杂度的查找和删除操作。当插入新缓存项时，
+如果缓存容量超过限制，则删除最近最少访问的节点。这样，LRU（Least Recently Used）策略保证了最近访问的缓存项会被保留在缓存中，
+而很久没有访问的缓存项会被移除。
+*/
+// entry 结构体用于表示缓存中的键值对
 type entry struct {
 	key, value int
 }
 
+// LRUCache 结构体表示LRU缓存
 type LRUCache struct {
-	capacity  int
-	list      *list.List // 双向链表
-	keyToNode map[int]*list.Element
+	capacity  int              // 缓存容量
+	list      *list.List       // 双向链表，用于按访问顺序存储缓存项
+	keyToNode map[int]*list.Element // 哈希表，用于存储键到双向链表节点的映射关系
 }
 
+// Constructor 初始化LRUCache
 func Constructor(capacity int) LRUCache {
 	return LRUCache{capacity, list.New(), map[int]*list.Element{}}
 }
 
+// Get 根据键获取缓存值，如果键不存在返回-1，否则返回对应的值，并将该键值对移到链表头部表示最近访问
 func (c *LRUCache) Get(key int) int {
 	node := c.keyToNode[key]
-	if node == nil { // 没有这本书
+	if node == nil {
 		return -1
 	}
-	c.list.MoveToFront(node) // 把这本书放在最上面
+	c.list.MoveToFront(node) // 将节点移到链表头部，表示最近访问
 	return node.Value.(entry).value
 }
 
+// Put 将键值对放入缓存，如果键已存在，则更新值并将该键值对移到链表头部表示最近访问；
+// 如果键不存在，创建新节点，放入链表头部，如果缓存容量超过限制，则删除最近最少访问的节点（链表尾部）。
 func (c *LRUCache) Put(key, value int) {
-	if node := c.keyToNode[key]; node != nil { // 有这本书
-		node.Value = entry{key, value} // 更新
-		c.list.MoveToFront(node) // 把这本书放在最上面
+	if node := c.keyToNode[key]; node != nil { // 如果键已存在
+		node.Value = entry{key, value} // 更新值
+		c.list.MoveToFront(node)       // 将节点移到链表头部，表示最近访问
 		return
 	}
-	c.keyToNode[key] = c.list.PushFront(entry{key, value}) // 新书，放在最上面
-	if len(c.keyToNode) > c.capacity { // 书太多了
-		delete(c.keyToNode, c.list.Remove(c.list.Back()).(entry).key) // 去掉最后一本书
+	c.keyToNode[key] = c.list.PushFront(entry{key, value}) // 创建新节点，放入链表头部
+	if len(c.keyToNode) > c.capacity {                      // 如果缓存容量超过限制
+		delete(c.keyToNode, c.list.Remove(c.list.Back()).(entry).key) // 删除最近最少访问的节点（链表尾部）
 	}
 }
