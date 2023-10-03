@@ -1,4 +1,4 @@
-package graph
+package main
 
 /*
 994. 腐烂的橘子
