@@ -45,7 +45,8 @@ func mergeList(l1, l2 *ListNode) *ListNode {
 			prev.Next = l2
 			l2 = l2.Next
 		}
-		prev = prev.Next // prev.Next确定了，prev指针推进
+		prev = prev.Next // prev.Next确定了，prev指
+		// 针推进
 	}
 	if l1 != nil {    // l1存在，l2不存在，让prev.Next指向l1
 		prev.Next = l1
