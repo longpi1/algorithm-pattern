@@ -1,28 +1,19 @@
-基于开源项目添加个人的相关练习代码：https://github.com/greyireland/algorithm-pattern
+## 基于开源项目添加个人的相关练习代码：https://github.com/greyireland/algorithm-pattern
 
-## 刷题不应该只是为了面试，也是提升个人能力和掌握一门语言的高效方法
+## 目的
+
+刷题不应该只是为了面试，也是提升个人能力和掌握一门语言的高效方法
 
 ## 目录结构 
+- 
+- **algorithm_list_golang/:** golang编写的相关leetcode刷题记录
+   - **array/** 数组相关
+   - **stack&queue/** 栈和队列
+   - **string/** 字符串
+   - **tree/** 二叉树  
+   - **linkedList/** 链表
+   - **.../**
 
-- **algorithm-pattern/**
-   - **algorithm_list_golang/:** golang编写的相关leetcode刷题记录
-      - **array/** 数组相关
-      - **stack&queue/** 栈和队列
-      - **string/** 字符串
-      - **tree/** 二叉树  
-      - **linkedList/** 链表
-      - **.../**
-  - **algorithm_list_php/:** php编写的相关leetcode刷题记录（todo）
-  - **data_structure/:**  基础结构
-    - `binary_op` : 常见二进制操作
-    - `binary_tree` : 二叉树
-    - `linked_list` : 链表
-    - `stack_queue` : 栈和队列
-  - **images/:**  图像
-  - **docs/**
-  - **.../**
-     - `README.md` : 项目文档
-  - `LICENSE` : 项目许可证
 
   
 
