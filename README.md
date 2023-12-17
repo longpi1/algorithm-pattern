@@ -12,7 +12,27 @@
       - **tree/** 二叉树  
       - **linkedList/** 链表
       - **.../**
+   - **base_golang/:** golang相关数据结构的基础实现
+      - **array/** 数组相关
+      - **stack&queue/** 栈和队列
+      - **string/** 字符串
+      - **tree/** 二叉树
+      - **linkedList/** 链表
+      - **.../**
   - **algorithm_list_php/:** php编写的相关leetcode刷题记录（todo）
+      - **array/** 数组相关
+      - **stack&queue/** 栈和队列
+      - **string/** 字符串
+      - **tree/** 二叉树
+      - **linkedList/** 链表
+      - **.../**
+  - **base_php/:** php相关数据结构的基础实现
+      - **array/** 数组相关
+      - **stack&queue/** 栈和队列
+      - **string/** 字符串
+      - **tree/** 二叉树
+      - **linkedList/** 链表
+      - **.../**
   - **data_structure/:**  基础结构
     - `binary_op` : 常见二进制操作
     - `binary_tree` : 二叉树
