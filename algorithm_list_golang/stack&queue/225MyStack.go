@@ -45,6 +45,57 @@ myStack.empty(); // 返回 False
 解题思路：
 
 */
+
+type MyStack struct {
+	queue1, queue2 []int
+}
+
+func Constructor() MyStack {
+	return MyStack{queue1: make([]int, 0), queue2: make([]int, 0)}
+}
+
+func (this *MyStack) Push(x int) {
+	this.queue2 = append(this.queue2, x)
+	for len(this.queue1) != 0 {
+		tmp := this.queue1[0]
+		this.queue1 = this.queue1[1:]
+		this.queue2 = append(this.queue2, tmp)
+	}
+	this.queue1, this.queue2 = this.queue2, this.queue1
+}
+
+func (this *MyStack) Pop() int {
+	tmp := this.queue1[0]
+	this.queue1 = this.queue1[1:]
+	return tmp
+}
+
+func (this *MyStack) Top() int {
+	return this.queue1[0]
+}
+
+func (this *MyStack) Empty() bool {
+	return len(this.queue1) == 0
+}
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(x);
+ * param_2 := obj.Pop();
+ * param_3 := obj.Top();
+ * param_4 := obj.Empty();
+ */
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(x);
+ * param_2 := obj.Pop();
+ * param_3 := obj.Peek();
+ * param_4 := obj.Empty();
+ */
+
 type MyStack struct {
 	queue1, queue2 []int
 }
@@ -80,8 +131,6 @@ func (s *MyStack) Top() int {
 func (s *MyStack) Empty() bool {
 	return len(s.queue1) == 0
 }
-
-
 
 //以下通过一个队列实现
 /*
@@ -132,8 +181,6 @@ func (s *MyStack) Top() int {
 func (s *MyStack) Empty() bool {
 	return len(s.queue) == 0
 }
-
-
 
 /**
  * Your MyStack object will be instantiated and called as such:

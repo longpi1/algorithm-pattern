@@ -1,6 +1,5 @@
 package main
 
-
 /*题目 #
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 
@@ -22,8 +21,20 @@ return [0, 1]
 
 顺序扫描数组，对每一个元素，在 map 中找能组合给定值的另一半数字，如果找到了，直接返回 2 个数字的下标即可。如果找不到，就把这个数字存入 map 中，等待扫到“另一半”数字的时候，再取出来返回结果。*/
 
-func twoSum(nums []int, target int)(int, int){
-	m := make(map[int]int,len(nums))
+func twoSum(nums []int, target int) []int {
+	m := make(map[int]int, len(nums))
+	for i, num := range nums {
+		ano := target - num
+		if tmp, ok := m[ano]; ok {
+			return []int{i, tmp}
+		}
+		m[nums[i]] = i
+	}
+	return nil
+}
+
+func twoSum(nums []int, target int) (int, int) {
+	m := make(map[int]int, len(nums))
 	for i := 0; i < len(nums); i++ {
 		another := target - nums[i]
 		if _, ok := m[another]; ok {
@@ -35,21 +46,21 @@ func twoSum(nums []int, target int)(int, int){
 }
 
 func twoSum1(nums []int, target int) []int {
-	tmp := make(map[int]int,len(nums))
-	for i :=0; i<len(nums);i++{
+	tmp := make(map[int]int, len(nums))
+	for i := 0; i < len(nums); i++ {
 
 		tmp1 := target - nums[i]
-		if _,ok:=tmp[tmp1];ok {
+		if _, ok := tmp[tmp1]; ok {
 			tmp2 := tmp[tmp1]
-			return []int{tmp2,i}
+			return []int{tmp2, i}
 		}
 		tmp[nums[i]] = i
 	}
 	return nil
 }
 
-func main()  {
-	nums := []int{3,2,4}
+func main() {
+	nums := []int{3, 2, 4}
 	target := 6
-	print(twoSum1(nums,target))
+	print(twoSum1(nums, target))
 }

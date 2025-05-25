@@ -38,6 +38,60 @@ myQueue.empty(); // return false
 假设所有操作都是有效的 （例如，一个空的队列不会调用 pop 或者 peek 操作）
 
 */
+
+type MyQueue struct {
+	in, out []int
+}
+
+func Constructor() MyQueue {
+	return MyQueue{in: make([]int, 0), out: make([]int, 0)}
+}
+
+func (this *MyQueue) Push(x int) {
+	for len(this.out) != 0 {
+		num := this.out[len(this.out)-1]
+		this.in = append(this.in, num)
+		this.out = this.out[0 : len(this.out)-1]
+	}
+	this.in = append(this.in, x)
+}
+
+func (this *MyQueue) Pop() int {
+	for len(this.in) != 0 {
+		num := this.in[len(this.in)-1]
+		this.out = append(this.out, num)
+		this.in = this.in[0 : len(this.in)-1]
+	}
+	result := this.out[len(this.out)-1]
+	this.out = this.out[0 : len(this.out)-1]
+	return result
+}
+
+func (this *MyQueue) Peek() int {
+	for len(this.in) != 0 {
+		num := this.in[len(this.in)-1]
+		this.out = append(this.out, num)
+		this.in = this.in[0 : len(this.in)-1]
+	}
+	if len(this.out) == 0 {
+		return -1
+	}
+	return this.out[len(this.out)-1]
+}
+
+func (this *MyQueue) Empty() bool {
+	return len(this.in) == 0 && len(this.out) == 0
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(x);
+ * param_2 := obj.Pop();
+ * param_3 := obj.Peek();
+ * param_4 := obj.Empty();
+ */
+
 /*type MyQueue struct {
 	Queue []int
 }
@@ -73,21 +127,20 @@ func (this *MyQueue) Empty() bool {
 	return flag
 }*/
 
-//上述答案是直接通过切片实现，下面通过双栈
+// 上述答案是直接通过切片实现，下面通过双栈
 type MyQueue struct {
-	in []int
+	in  []int
 	out []int
 }
-
 
 func Constructor() MyQueue {
 	in := make([]int, 0)
 	out := make([]int, 0)
-	return MyQueue{in: in,out: out}
+	return MyQueue{in: in, out: out}
 }
 
-//push需要注意的点，由于是双栈实现，所以需要先将out切片中的数据全部传到in栈中才能添加元素，pop也是一个道理
-func (this *MyQueue) Push(x int)  {
+// push需要注意的点，由于是双栈实现，所以需要先将out切片中的数据全部传到in栈中才能添加元素，pop也是一个道理
+func (this *MyQueue) Push(x int) {
 	for len(this.out) != 0 {
 		val := this.out[len(this.out)-1]
 		this.out = this.out[:len(this.out)-1]
@@ -96,7 +149,6 @@ func (this *MyQueue) Push(x int)  {
 	this.in = append(this.in, x)
 }
 
-
 func (this *MyQueue) Pop() int {
 	for len(this.in) != 0 {
 		val := this.in[len(this.in)-1]
@@ -104,10 +156,9 @@ func (this *MyQueue) Pop() int {
 		this.out = append(this.out, val)
 	}
 	result := this.out[len(this.out)-1]
-	this.out = this.out[0:len(this.out)-1]
+	this.out = this.out[0 : len(this.out)-1]
 	return result
 }
-
 
 func (this *MyQueue) Peek() int {
 	if len(this.in) == 0 && len(this.out) == 0 {
@@ -119,16 +170,12 @@ func (this *MyQueue) Peek() int {
 		this.in = this.in[:len(this.in)-1]
 		this.out = append(this.out, val)
 	}
-	return 	 this.out[len(this.out)-1]
+	return this.out[len(this.out)-1]
 }
-
 
 func (this *MyQueue) Empty() bool {
 	return len(this.in) == 0 && len(this.out) == 0
 }
-
-
-
 
 /**
  * Your MyQueue object will be instantiated and called as such:
