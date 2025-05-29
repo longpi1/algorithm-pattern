@@ -1,4 +1,5 @@
 package main
+
 /*
 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
 
@@ -40,18 +41,27 @@ for (int i = 0; i < len; i++) {
 
 */
 
-
 func removeElement(nums []int, val int) int {
-	for i := len(nums) -1; i >= 0 ; i--{
+	// 从最后一位遍历获取，否则不好截断数组
+	for i := len(nums) - 1; i >= 0; i-- {
 		if nums[i] == val {
-			nums = append(nums[:i], nums[i+1:] ...)
+			nums = append(nums[0:i], nums[i+1:]...)
 		}
 	}
 	return len(nums)
 }
 
-func main()  {
-	nums := []int{3,2,2,3}
+func removeElement(nums []int, val int) int {
+	for i := len(nums) - 1; i >= 0; i-- {
+		if nums[i] == val {
+			nums = append(nums[:i], nums[i+1:]...)
+		}
+	}
+	return len(nums)
+}
+
+func main() {
+	nums := []int{3, 2, 2, 3}
 	val := 3
-	println(removeElement(nums,val))
+	println(removeElement(nums, val))
 }

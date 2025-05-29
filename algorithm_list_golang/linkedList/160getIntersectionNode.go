@@ -39,9 +39,39 @@ skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
 在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。
 */
 
-type ListNode struct {
-	Val int
-	Next *ListNode
+//type ListNode struct {
+//	Val  int
+//	Next *ListNode
+//}
+
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	/*
+		// 第一次做错误，应该改为直接用对应节点为map的key
+		m := make(map[int]bool)
+		for headA != nil {
+			m[headA.Val] = true
+			headA = headA.Next
+		}
+
+		for headB != nil {
+			if _, ok := m[headB.Val]; ok {
+				return headB
+			}
+			headB = headB.Next
+		}*/
+	m := make(map[*ListNode]bool)
+	for headA != nil {
+		m[headA] = true
+		headA = headA.Next
+	}
+
+	for headB != nil {
+		if _, ok := m[headB]; ok {
+			return headB
+		}
+		headB = headB.Next
+	}
+	return nil
 }
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
