@@ -32,13 +32,35 @@ s 和 t 仅包含小写字母
 */
 
 func isAnagram(s string, t string) bool {
-	strings1 := strings.Split(s,"")
-	strings2 := strings.Split(t,"")\
+	if len(s) != len(t) {
+		return false
+	}
+	m := make(map[byte]int, len(s))
+	arr1 := []byte(s)
+	arr2 := []byte(t)
+	for _, str := range arr1 {
+		m[str]++
+	}
+	for _, str := range arr2 {
+		m[str]--
+	}
+	for _, val := range m {
+		if val != 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func isAnagram(s string, t string) bool {
+	// 优化点，字符串切割换为byte(s)或者转换为rune更合适
+	strings1 := strings.Split(s, "")
+	strings2 := strings.Split(t, "")
 	l1 := len(strings1)
 	if l1 != len(strings2) {
 		return false
 	}
-	m := make(map[string]int,len(strings1))
+	m := make(map[string]int, len(strings1))
 	for i := 0; i < l1; i++ {
 		m[strings1[i]] += 1
 	}
@@ -53,8 +75,7 @@ func isAnagram(s string, t string) bool {
 	return true
 }
 
-
-//其他思路：排序
+// 其他思路：排序
 func isAnagram(s, t string) bool {
 	s1, s2 := []byte(s), []byte(t)
 	sort.Slice(s1, func(i, j int) bool { return s1[i] < s1[j] })
@@ -62,3 +83,23 @@ func isAnagram(s, t string) bool {
 	return string(s1) == string(s2)
 }
 
+// 对于进阶问题，Unicode 是为了解决传统字符编码的局限性而产生的方案，它为每个语言中的字符规定了一个唯一的二进制编码。
+//而 Unicode 中可能存在一个字符对应多个字节的问题，为了让计算机知道多少字节表示一个字符，面向传输的编码方式的 UTF−8 和 UTF−16 也随之诞生逐渐广泛使用，
+//具体相关的知识读者可以继续查阅相关资料拓展视野，这里不再展开。
+
+func isAnagram(s, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	cnt := map[rune]int{}
+	for _, ch := range s {
+		cnt[ch]++
+	}
+	for _, ch := range t {
+		cnt[ch]--
+		if cnt[ch] < 0 {
+			return false
+		}
+	}
+	return true
+}

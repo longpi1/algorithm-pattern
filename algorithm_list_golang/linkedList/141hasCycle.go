@@ -1,6 +1,5 @@
 package main
 
-
 /*
 给你一个链表的头节点 head ，判断链表中是否有环。
 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
@@ -28,37 +27,56 @@ pos 为 -1 或者链表中的一个 有效索引 。
 
 */
 
-
 /*
 
-*/
+ */
 
 func hasCycle(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return false
 	}
-
-	slow, fast := head, head.Next
-
+	slow := head
+	fast := head
 	for fast != nil && fast.Next != nil {
+		if slow == fast {
+			// 错误1：第一次循环时，slow 和 fast 都指向 head，必然相等，会错误地返回 true
+			// 修正建议：在比较之前，应该先移动指针
+			return true
+		}
+		// 错误2：这里使用了 head.Next 和 head.Next.Next，而不是 slow 和 fast
+		// 这会导致指针始终基于 head 移动，而不是基于当前 slow 和 fast 的位置
+		// 修正建议：应改为 slow = slow.Next 和 fast = fast.Next.Next
+		slow = head.Next
+		fast = head.Next.Next
+	}
+	return false
+}
+func hasCycle(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return false
+	}
+	slow := head
+	fast := head
+	for fast != nil && fast.Next != nil {
+		// 先移动指针，再进行比较
+		slow = slow.Next
+		fast = fast.Next.Next
+		// 在移动后再比较，避免第一次循环时 slow == fast 的误判
 		if slow == fast {
 			return true
 		}
-		slow = slow.Next
-		fast = fast.Next.Next
 	}
 	return false
 }
 
-
 // 双指针，（快慢指针的思路）
 func hasCycle(head *ListNode) bool {
-	if head == nil || head.Next == nil{
+	if head == nil || head.Next == nil {
 		return false
 	}
 	slow := head
 	fast := head.Next
-	for fast != nil &&  fast.Next != nil {
+	for fast != nil && fast.Next != nil {
 		if fast == slow {
 			return true
 		}
@@ -68,9 +86,8 @@ func hasCycle(head *ListNode) bool {
 	return false
 }
 
-
-func main(){
-	head := &ListNode{Val:1,Next: &ListNode{Val:2,Next: &ListNode{Val:3,Next: &ListNode{Val:4,Next: nil}}}}
+func main() {
+	head := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4, Next: nil}}}}
 	result := hasCycle(head)
 	println(result)
 }
