@@ -38,30 +38,46 @@ package main
 //}
 
 func preorderTraversal(root *TreeNode) []int {
-	result := make([]int,0)
+	if root == nil {
+		return []int{}
+	}
+	result := make([]int, 0)
+	return traversal(root, result)
+}
 
-	return traversal(root,result)
+func traversal(node *TreeNode, result []int) []int {
+	if node == nil {
+		return result
+	}
+	result = append(result, node.Val)
+	result = traversal(node.Left, result)
+	result = traversal(node.Right, result)
+	return result
+}
+
+func preorderTraversal(root *TreeNode) []int {
+	result := make([]int, 0)
+
+	return traversal(root, result)
 }
 
 // 递归
-func traversal(cur *TreeNode, result []int) []int{
+func traversal(cur *TreeNode, result []int) []int {
 	if cur == nil {
 		return result
 	}
 	result = append(result, cur.Val)
-	result=traversal(cur.Left,result)
-	result=traversal(cur.Right,result)
+	result = traversal(cur.Left, result)
+	result = traversal(cur.Right, result)
 	return result
 }
-
-
 
 // 非递归遍历
 func preorderTraversal(root *TreeNode) []int {
 	stack := make([]*TreeNode, 0)
 	result := make([]int, 0)
 	stack = append(stack, root)
-	if root == nil{
+	if root == nil {
 		return []int{}
 	}
 	for len(stack) != 0 {
@@ -95,9 +111,7 @@ func preorderTraversal(root *TreeNode) (vals []int) {
 	return
 }
 
-
-
-func main(){
-  root :=	TreeNode{Val: 1,Left: &TreeNode{Val: 2},Right: &TreeNode{Val: 3}}
-  preorderTraversal(&root)
+func main() {
+	root := TreeNode{Val: 1, Left: &TreeNode{Val: 2}, Right: &TreeNode{Val: 3}}
+	preorderTraversal(&root)
 }

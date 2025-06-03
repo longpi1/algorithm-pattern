@@ -30,26 +30,53 @@ package main
  * }
  */
 
+func postorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+	m := make(map[*TreeNode]bool)
+	result := make([]int, 0)
+	stack := []*TreeNode{root}
+	for len(stack) > 0 {
+		n := len(stack) - 1
+		node := stack[n]
+		if node.Left != nil && !m[node.Left] {
+			stack = append(stack, node.Left)
+			m[node.Left] = true
+			continue
+		}
+		if node.Right != nil && !m[node.Right] {
+			stack = append(stack, node.Right)
+			m[node.Right] = true
+			continue
+		}
+
+		result = append(result, node.Val)
+		//m[node.Left] = true
+		stack = stack[:n]
+	}
+	return result
+}
+
 // 实现1：递归
 func postorderTraversal(root *TreeNode) []int {
 
-	result := make([]int,0)
+	result := make([]int, 0)
 
-	return traversal(root,result)
+	return traversal(root, result)
 }
 
-func traversal(cur *TreeNode, result []int) []int{
+func traversal(cur *TreeNode, result []int) []int {
 	if cur == nil {
 		return result
 	}
 
-	result=traversal(cur.Left,result)
+	result = traversal(cur.Left, result)
 
-	result=traversal(cur.Right,result)
+	result = traversal(cur.Right, result)
 	result = append(result, cur.Val)
 	return result
 }
-
 
 // 非递归遍历
 /*func postorderTraversal(root *TreeNode) []int {
@@ -117,7 +144,6 @@ func postorderTraversal(root *TreeNode) []int {
 	return result
 }
 
-
 // 实现3，使用反转实现的代码如下：
 func postorderTraversal(root *TreeNode) []int {
 	result := []int{}
@@ -153,8 +179,7 @@ func postorderTraversal(root *TreeNode) []int {
 	return result
 }
 
-
-func main(){
-	root :=	TreeNode{Val: 1,Right: &TreeNode{Val: 3,Left: &TreeNode{Val: 2}}}
+func main() {
+	root := TreeNode{Val: 1, Right: &TreeNode{Val: 3, Left: &TreeNode{Val: 2}}}
 	postorderTraversal(&root)
 }

@@ -1,6 +1,5 @@
 package main
 
-
 /*
 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。
 
@@ -24,15 +23,27 @@ package main
 s[i] 都是 ASCII 码表中的可打印字符
 */
 
+func reverseString(s []byte) {
+	right := len(s) - 1
+	left := 0
+	for left < right {
+		tmp := s[left]
+		s[left] = s[right]
+		s[right] = tmp
+		left++
+		right--
+	}
 
-func reverseString(s []byte)  {
-	right := len(s)-1
+}
+
+func reverseString(s []byte) {
+	right := len(s) - 1
 	left := 0
 	for left < right {
 		tmp := s[right]
 		s[right] = s[left]
-		s[left]= tmp
-		left ++
-		right --
+		s[left] = tmp
+		left++
+		right--
 	}
 }
