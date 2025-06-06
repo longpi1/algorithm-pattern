@@ -42,6 +42,27 @@ func preorderTraversal(root *TreeNode) []int {
 		return []int{}
 	}
 	result := make([]int, 0)
+	stack := []*TreeNode{root}
+	for len(stack) > 0 {
+		n := len(stack) - 1
+		node := stack[n]
+		result = append(result, node.Val)
+		stack = stack[:n]
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+	}
+	return result
+}
+
+func preorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+	result := make([]int, 0)
 	return traversal(root, result)
 }
 

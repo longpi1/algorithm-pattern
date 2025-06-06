@@ -1,6 +1,5 @@
 package main
 
-
 /*
 给定一个二叉树 root ，返回其最大深度。
 
@@ -17,6 +16,39 @@ package main
 输出：2
 
 */
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	max := 0
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		size := len(queue)
+		leveQueue := make([]*TreeNode, 0)
+		for i := 0; i < size; i++ {
+			node := queue[i]
+
+			if node.Left != nil {
+				leveQueue = append(leveQueue, node.Left)
+			}
+			if node.Right != nil {
+				leveQueue = append(leveQueue, node.Right)
+			}
+		}
+		max++
+		queue = leveQueue
+	}
+	return max
+}
 
 /*func maxDepth(root *TreeNode) int {
 	depth := 0
@@ -74,13 +106,12 @@ func maxDepth(root *TreeNode) int {
 }
 
 // 辅助函数，用于比较两个整数的最大值
-func max(a int, b int) int{
+func max(a int, b int) int {
 	if a > b {
 		return a
 	}
 	return b
 }
-
 
 // 基于队列实现此题：
 func maxDepth(root *TreeNode) int {
@@ -92,7 +123,7 @@ func maxDepth(root *TreeNode) int {
 
 	for len(queue) != 0 {
 		levelSize := len(queue)
-		for i := 0; i< levelSize; i++ {
+		for i := 0; i < levelSize; i++ {
 
 			node := queue[i]
 			if node.Left != nil {
@@ -103,14 +134,13 @@ func maxDepth(root *TreeNode) int {
 
 			}
 		}
-		depth ++
+		depth++
 		queue = queue[levelSize:]
 	}
 	return depth
 }
 
-func main()  {
-	root :=	&TreeNode{Val: 1,Left: &TreeNode{Val: 2},Right: &TreeNode{Val: 3,Left: &TreeNode{Val: 4}}}
+func main() {
+	root := &TreeNode{Val: 1, Left: &TreeNode{Val: 2}, Right: &TreeNode{Val: 3, Left: &TreeNode{Val: 4}}}
 	print(maxDepth(root))
 }
-

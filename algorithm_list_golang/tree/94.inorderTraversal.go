@@ -26,7 +26,6 @@ package main
 -100 <= Node.val <= 100
 */
 
-
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -35,21 +34,48 @@ package main
  *     Right *TreeNode
  * }
  */
-func inorderTraversal(root *TreeNode) []int {
-	result := make([]int,0)
 
-	return traversal(root,result)
+func inorderTraversal(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+	visit := make(map[*TreeNode]bool)
+	result := make([]int, 0)
+	stack := []*TreeNode{root}
+	for len(stack) > 0 {
+		node := stack[len(stack)-1]
+		for node.Left != nil && !visit[node.Left] {
+			visit[node.Left] = true
+			stack = append(stack, node.Left)
+			// 第一次写忘记切节点位置，导致一直循环超时
+			node = node.Left
+		}
+		n := len(stack) - 1
+
+		result = append(result, node.Val)
+		stack = stack[:n]
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+	}
+	return result
 }
 
-//递归
-func traversal(cur *TreeNode, result []int) []int{
+func inorderTraversal(root *TreeNode) []int {
+	result := make([]int, 0)
+
+	return traversal(root, result)
+}
+
+// 递归
+func traversal(cur *TreeNode, result []int) []int {
 	if cur == nil {
 		return result
 	}
 
-	result=traversal(cur.Left,result)
+	result = traversal(cur.Left, result)
 	result = append(result, cur.Val)
-	result=traversal(cur.Right,result)
+	result = traversal(cur.Right, result)
 	return result
 }
 
@@ -143,4 +169,3 @@ func inorderTraversal(root *TreeNode) []int {
 	}
 	return res
 }
-

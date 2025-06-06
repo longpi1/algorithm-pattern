@@ -14,35 +14,49 @@ package main
 输入：root = []
 输出：[]
 
-
 提示：
 
 树中节点数目范围在 [0, 100] 内
 -100 <= Node.val <= 100
 */
-
-
-
-//前序遍历实现
 func invertTree(root *TreeNode) *TreeNode {
-	if root == nil{
+	if root == nil {
 		return nil
 	}
-	root.Left , root.Right=  swap(root.Left,root.Right)
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		node := queue[len(queue)-1]
+		queue = queue[:len(queue)-1]
+		node.Left, node.Right = node.Right, node.Left
+		if node.Left != nil {
+			queue = append(queue, node.Left)
+		}
+		if node.Right != nil {
+			queue = append(queue, node.Right)
+		}
+	}
+	return root
+}
+
+// 前序遍历实现
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	root.Left, root.Right = swap(root.Left, root.Right)
 	invertTree(root.Left)
 	invertTree(root.Right)
 	return root
 }
 
-
-func swap(left *TreeNode, right *TreeNode) (*TreeNode,*TreeNode){
+func swap(left *TreeNode, right *TreeNode) (*TreeNode, *TreeNode) {
 	tmp := left
 	left = right
 	right = tmp
 	return left, right
 }
 
-//层序遍历实现：
+// 层序遍历实现：
 func invertTree(root *TreeNode) *TreeNode {
 	if root == nil {
 		return root
@@ -64,7 +78,7 @@ func invertTree(root *TreeNode) *TreeNode {
 	return root
 }
 
-func main(){
-	root :=	TreeNode{Val: 1,Left: &TreeNode{Val: 2},Right: &TreeNode{Val: 3,Left: &TreeNode{Val: 4}}}
+func main() {
+	root := TreeNode{Val: 1, Left: &TreeNode{Val: 2}, Right: &TreeNode{Val: 3, Left: &TreeNode{Val: 4}}}
 	invertTree(&root)
 }

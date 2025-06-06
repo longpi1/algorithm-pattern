@@ -24,6 +24,33 @@ import "math"
 -1000 <= Node.val <= 1000
 */
 
+func minDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	queue := []*TreeNode{root}
+	min := 1
+	for len(queue) > 0 {
+		levelSize := len(queue)
+		for i := 0; i < levelSize; i++ {
+			node := queue[i]
+			if node.Left == nil && node.Right == nil {
+				return min
+			}
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		queue = queue[levelSize:]
+		min++
+	}
+	return min
+
+}
+
 // 基于队列层序遍历，也就是广度优先遍历
 func minDepth(root *TreeNode) int {
 	if root == nil {
@@ -34,7 +61,7 @@ func minDepth(root *TreeNode) int {
 
 	for len(queue) != 0 {
 		levelSize := len(queue)
-		for i := 0; i< levelSize; i++ {
+		for i := 0; i < levelSize; i++ {
 			node := queue[i]
 			if node.Left == nil && node.Right == nil {
 				return depth + 1
@@ -46,7 +73,7 @@ func minDepth(root *TreeNode) int {
 				queue = append(queue, node.Right)
 			}
 		}
-		depth ++
+		depth++
 		queue = queue[levelSize:]
 	}
 	return depth
@@ -89,8 +116,34 @@ func min(x, y int) int {
 	return y
 }
 
+// minDepth 优化后的递归版本
+func minDepth(root *TreeNode) int {
+	if root == nil {
+		return 0 // 空树的最小深度为0
+	}
 
-func main()  {
-	root :=	&TreeNode{Val: 1,Left: &TreeNode{Val: 2},Right: &TreeNode{Val: 3,Left: &TreeNode{Val: 4}}}
+	// 如果是叶子节点，其深度为1
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+
+	// 如果只有左子节点，则最小深度是左子树的最小深度 + 1
+	if root.Left == nil {
+		return minDepth(root.Right) + 1
+	}
+
+	// 如果只有右子节点，则最小深度是右子树的最小深度 + 1
+	if root.Right == nil {
+		return minDepth(root.Left) + 1
+	}
+
+	// 如果左右子节点都存在，则最小深度是左右子树最小深度中的较小值 + 1
+	leftMinDepth := minDepth(root.Left)
+	rightMinDepth := minDepth(root.Right)
+
+	return int(math.Min(float64(leftMinDepth), float64(rightMinDepth))) + 1
+}
+func main() {
+	root := &TreeNode{Val: 1, Left: &TreeNode{Val: 2}, Right: &TreeNode{Val: 3, Left: &TreeNode{Val: 4}}}
 	print(minDepth(root))
 }
