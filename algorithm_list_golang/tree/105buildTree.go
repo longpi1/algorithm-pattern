@@ -15,7 +15,6 @@ package main
 
 */
 
-
 /*
 解题思路：
 第一步：如果数组大小为零的话，说明是空节点了。
@@ -30,6 +29,38 @@ package main
 
 第六步：递归处理左区间和右区间
 */
+
+func buildTree(inorder []int, postorder []int) *TreeNode {
+	if len(postorder) == 0 || len(inorder) == 0 {
+		return nil
+	}
+	n := len(postorder)
+
+	rootVal := postorder[n-1]
+	root := &TreeNode{Val: rootVal}
+	if n == 1 {
+		return root
+	}
+	index := 0
+	for index = 0; index < n; index++ {
+		if inorder[index] != rootVal {
+			continue
+		}
+		break
+	}
+	index2 := 0
+	for index2 = 0; index2 < n; index2++ {
+		if postorder[index] != inorder[index] {
+			continue
+		}
+		break
+	}
+	root.Left = buildTree(inorder[:index-1], postorder[:index2])
+	root.Right = buildTree(inorder[index+1:], postorder[index2+1:n-1])
+	return root
+
+}
+
 func buildTree(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) == 0 {
 		return nil
@@ -46,16 +77,15 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	leftInorder := inorder[:index]
 	rightInorder := inorder[index+1:]
 	// 分割前序
-	leftPreorder := preorder[1:index+1]
+	leftPreorder := preorder[1 : index+1]
 	rightPreorder := preorder[index+1:]
-	node.Left = buildTree(leftPreorder,leftInorder)
-	node.Right = buildTree(rightPreorder,rightInorder)
+	node.Left = buildTree(leftPreorder, leftInorder)
+	node.Right = buildTree(rightPreorder, rightInorder)
 	return node
 }
 
-
-func main(){
-	preorder := []int{3,9,20,15,7}
-	inorder := []int{9,3,15,20,7}
-	buildTree(preorder,inorder)
+func main() {
+	preorder := []int{3, 9, 20, 15, 7}
+	inorder := []int{9, 3, 15, 20, 7}
+	buildTree(preorder, inorder)
 }
