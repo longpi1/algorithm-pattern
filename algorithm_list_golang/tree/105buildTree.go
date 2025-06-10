@@ -15,6 +15,39 @@ package main
 
 */
 
+// buildTree 根据前序遍历和中序遍历序列构建二叉树
+func buildTree(preorder []int, inorder []int) *TreeNode {
+	// 1. 基准情况：如果序列为空，则无法构建节点，返回nil
+	if len(inorder) == 0 || len(preorder) == 0 {
+		return nil
+	}
+
+	// 2. 修正：前序遍历的第一个元素是当前子树的根节点
+	rootVal := preorder[0]
+	root := &TreeNode{Val: rootVal}
+
+	// 3. 在中序遍历序列中找到根节点的值，以区分左右子树
+	//    此处的 `idx` 是根节点在中序序列中的索引
+	var idx int
+	for i, val := range inorder {
+		if val == rootVal {
+			idx = i
+			break
+		}
+	}
+
+	// 4. 递归构建左右子树
+	// 左子树的中序遍历序列：inorder[:idx]
+	// 左子树的前序遍历序列：preorder[1 : 1+idx] （跳过当前根节点，取前idx个元素）
+	root.Left = buildTree(preorder[1:1+idx], inorder[:idx])
+
+	// 右子树的中序遍历序列：inorder[idx+1:]
+	// 右子树的前序遍历序列：preorder[1+idx:] （跳过当前根节点和所有左子树节点）
+	root.Right = buildTree(preorder[1+idx:], inorder[idx+1:])
+
+	return root
+}
+
 /*
 解题思路：
 第一步：如果数组大小为零的话，说明是空节点了。
@@ -29,37 +62,6 @@ package main
 
 第六步：递归处理左区间和右区间
 */
-
-func buildTree(inorder []int, postorder []int) *TreeNode {
-	if len(postorder) == 0 || len(inorder) == 0 {
-		return nil
-	}
-	n := len(postorder)
-
-	rootVal := postorder[n-1]
-	root := &TreeNode{Val: rootVal}
-	if n == 1 {
-		return root
-	}
-	index := 0
-	for index = 0; index < n; index++ {
-		if inorder[index] != rootVal {
-			continue
-		}
-		break
-	}
-	index2 := 0
-	for index2 = 0; index2 < n; index2++ {
-		if postorder[index] != inorder[index] {
-			continue
-		}
-		break
-	}
-	root.Left = buildTree(inorder[:index-1], postorder[:index2])
-	root.Right = buildTree(inorder[index+1:], postorder[index2+1:n-1])
-	return root
-
-}
 
 func buildTree(preorder []int, inorder []int) *TreeNode {
 	if len(preorder) == 0 {

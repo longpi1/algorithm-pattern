@@ -1,4 +1,5 @@
 package main
+
 /*
 131. 分割回文串
 给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。
@@ -66,38 +67,38 @@ main 函数： 提供一个示例，演示如何使用 partition 函数。
 */
 
 var (
-	path []string  // 存储回文子串的路径
-	res  [][]string  // 存储所有回文分割方案的结果
+	path []string   // 存储回文子串的路径
+	res  [][]string // 存储所有回文分割方案的结果
 )
 
 func partition(s string) [][]string {
 	path, res = make([]string, 0), make([][]string, 0)
-	dfs(s, 0)  // 深度优先搜索
+	dfs(s, 0) // 深度优先搜索
 	return res
 }
 
-func dfs(s string, start int) {
-	if start == len(s) {  // 如果起始位置等于s的长度，说明已经找到了一组分割方案
-		tmp := make([]string, len(path))
-		copy(tmp, path)  // 将当前的回文子串路径复制到临时变量tmp中
-		res = append(res, tmp)  // 将临时变量tmp添加到结果中
-		return
-	}
-	for i := start; i < len(s); i++ {
-		str := s[start : i+1]  // 取出当前子串
-		if isPalindrome(str) {  // 如果当前子串是回文子串
-			path = append(path, str)  // 将当前子串添加到路径中
-			dfs(s, i+1)  // 递归查找下一个子串
-			path = path[:len(path)-1]  // 回溯，将当前子串从路径中移除
-		}
-	}
-}
+//func dfs(s string, start int) {
+//	if start == len(s) {  // 如果起始位置等于s的长度，说明已经找到了一组分割方案
+//		tmp := make([]string, len(path))
+//		copy(tmp, path)  // 将当前的回文子串路径复制到临时变量tmp中
+//		res = append(res, tmp)  // 将临时变量tmp添加到结果中
+//		return
+//	}
+//	for i := start; i < len(s); i++ {
+//		str := s[start : i+1]  // 取出当前子串
+//		if isPalindrome(str) {  // 如果当前子串是回文子串
+//			path = append(path, str)  // 将当前子串添加到路径中
+//			dfs(s, i+1)  // 递归查找下一个子串
+//			path = path[:len(path)-1]  // 回溯，将当前子串从路径中移除
+//		}
+//	}
+//}
 
 func isPalindrome(s string) bool {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		if s[i] != s[j] {
-			return false  // 如果不是回文，返回false
+			return false // 如果不是回文，返回false
 		}
 	}
-	return true  // 是回文，返回true
+	return true // 是回文，返回true
 }

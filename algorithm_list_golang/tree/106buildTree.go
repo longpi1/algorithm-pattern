@@ -35,36 +35,36 @@ postorder[index2+1:n-1] 错误：同样，index2 错误导致这里也错。
 边界条件处理不完善：
 if n == 1 { return root }：这个条件应该放在找到 rootVal 并构建 root 之后。如果 n 是 0 并且已经处理了，它不会走到这里。但这个判断的意义是，如果只有一个节点，它就是根节点，直接返回。这个本身没有太大问题，但更规范的解法是在递归的基准情况中统一处理。
 */
-func buildTree(inorder []int, postorder []int) *TreeNode {
-	if len(postorder) == 0 || len(inorder) == 0 {
-		return nil
-	}
-	n := len(postorder)
-
-	rootVal := postorder[n-1]
-	root := &TreeNode{Val: rootVal}
-	if n == 1 {
-		return root
-	}
-	index := 0
-	for index = 0; index < n; index++ {
-		if inorder[index] != rootVal {
-			continue
-		}
-		break
-	}
-	index2 := 0
-	for index2 = 0; index2 < n; index2++ {
-		if postorder[index] != inorder[index] {
-			continue
-		}
-		break
-	}
-	root.Left = buildTree(inorder[:index-1], postorder[:index2])
-	root.Right = buildTree(inorder[index+1:], postorder[index2+1:n-1])
-	return root
-
-}
+//func buildTree(inorder []int, postorder []int) *TreeNode {
+//	if len(postorder) == 0 || len(inorder) == 0 {
+//		return nil
+//	}
+//	n := len(postorder)
+//
+//	rootVal := postorder[n-1]
+//	root := &TreeNode{Val: rootVal}
+//	if n == 1 {
+//		return root
+//	}
+//	index := 0
+//	for index = 0; index < n; index++ {
+//		if inorder[index] != rootVal {
+//			continue
+//		}
+//		break
+//	}
+//	index2 := 0
+//	for index2 = 0; index2 < n; index2++ {
+//		if postorder[index] != inorder[index] {
+//			continue
+//		}
+//		break
+//	}
+//	root.Left = buildTree(inorder[:index-1], postorder[:index2])
+//	root.Right = buildTree(inorder[index+1:], postorder[index2+1:n-1])
+//	return root
+//
+//}
 
 // buildTree 根据中序遍历和后序遍历序列构建二叉树
 func buildTree(inorder []int, postorder []int) *TreeNode {
