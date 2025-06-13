@@ -63,6 +63,7 @@ func combinationSum3(k int, n int) [][]int {
 }
 
 // 最佳方式
+// 最佳方式
 func combinationSum3(k int, n int) [][]int {
 	result := make([][]int, 0)
 	path := make([]int, 0)
@@ -86,13 +87,6 @@ func combinationSum3(k int, n int) [][]int {
 		for i := index; i <= 9; i++ {
 			// 剪枝：如果当前数字大于剩余目标和，直接跳出循环
 			if i > needNum {
-				break
-			}
-
-			// 剪枝：如果剩余可选数字数量不足以填满 k - len(path) 个位置，直接跳出循环
-			remainingSlots := k - len(path)
-			remainingMaxSum := (i + 1 + i + remainingSlots) * remainingSlots / 2 // 剩余最大可能和
-			if remainingMaxSum < needNum {
 				break
 			}
 
