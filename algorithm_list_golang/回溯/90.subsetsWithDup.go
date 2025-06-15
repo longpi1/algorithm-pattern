@@ -29,7 +29,7 @@ import (
 -10 <= nums[i] <= 10
 */
 
-// 错误代码 下述代码剪枝逻辑错误
+// 错误代码 下述代码剪枝逻辑错误,核心逻辑树层去重
 func subsetsWithDup(nums []int) [][]int {
 	if len(nums) == 0 {
 		return nil

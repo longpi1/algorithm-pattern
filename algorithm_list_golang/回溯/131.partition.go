@@ -15,6 +15,40 @@ package main
 
 */
 
+func partition(s string) [][]string {
+	if len(s) == 0 {
+		return [][]string{}
+	}
+	result := make([][]string, 0)
+	path := make([]byte, 0)
+	sArr := []byte(s)
+
+	dfs := func() {}
+	dfs = func() {
+		if isRecall(path) {
+			result = append(result, string(path))
+		}
+	}
+	dfs()
+	return result
+}
+
+func isRecall(sArr []byte) bool {
+	if len(sArr) == 1 {
+		return true
+	}
+	left := 0
+	right := len(sArr)
+	for left < right {
+		if sArr[left] != sArr[right] {
+			return false
+		}
+		left++
+		right--
+	}
+	return true
+}
+
 /*func partition(s string) [][]string {
 	n := len(s)
 	if n == 0 {
