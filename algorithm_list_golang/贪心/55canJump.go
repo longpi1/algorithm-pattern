@@ -1,6 +1,5 @@
 package main
 
-
 //给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
 // 判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
 // 示例 1：
@@ -18,6 +17,25 @@ package main
 //
 // Related Topics 贪心 数组 动态规划
 
+func canJump(nums []int) bool {
+	if len(nums) <= 1 {
+		return true
+	}
+	if nums[0] == 0 {
+		return false
+	}
+	target := len(nums) - 1
+	step := 0
+	for i := 0; i <= step; i++ {
+		if step < i+nums[i] {
+			step = i + nums[i]
+		}
+		if step >= target {
+			return true
+		}
+	}
+	return false
+}
 
 //func canJump(nums []int) bool {
 //	n := len(nums)
@@ -70,8 +88,7 @@ func canJump(nums []int) bool {
 	return false // 无法跳跃到数组的最后一个位置，返回 false
 }
 
-
-func main(){
-	nums := []int{3,0,8,2,0,0,1}
+func main() {
+	nums := []int{3, 0, 8, 2, 0, 0, 1}
 	canJump(nums)
 }

@@ -3,19 +3,19 @@ package main
 import "sort"
 
 // go 通过切片模拟栈和队列
-func stack(){
+func stack() {
 	stack := make([]string, 10)
 	// 入栈
 	stack = append(stack, "test")
 	// 出栈
-	value :=stack[len(stack)-1]
+	value := stack[len(stack)-1]
 	print(value)
-	stack = stack[0:len(stack)-1]
+	stack = stack[0 : len(stack)-1]
 
-	stack=stack[:len(stack)-1]
+	stack = stack[:len(stack)-1]
 }
 
-func queue()  {
+func queue() {
 	queue := make([]string, 10)
 	// enqueue
 	queue = append(queue, "test")
@@ -26,7 +26,7 @@ func queue()  {
 }
 
 // 字典
-func dict(){
+func dict() {
 	dict := make(map[string]int, 0)
 	//set
 	dict["test"] = 0
@@ -34,46 +34,41 @@ func dict(){
 	value := dict["test"]
 	print(value)
 	// 删除k
-	delete(dict,"hello")
+	delete(dict, "hello")
 }
 
-
 // 标准库
-func libary(){
+func libary() {
 	// sort
 	sort.Float64s([]float64{})
 	sort.Ints([]int{})
 	sort.Strings([]string{})
 	data := make([]int, 10)
 	sort.Slice(data, func(i, j int) bool {
-		return  data[i] > data[j]
+		return data[i] > data[j]
 	})
 
 }
 
-
-
-
-//> 给定一个  haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从 0 开始)。如果不存在，则返回  -1。
+// > 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从 0 开始)。如果不存在，则返回 -1。
 func findStr(srcStr string, dstStr string) int {
 	if len(dstStr) == 0 {
 		return 0
 	}
 	var i, j int
-	for i = 0; i < len(srcStr) - len(dstStr)+1; i++ {
-		for j = 0; j <len(dstStr) ; j++ {
+	for i = 0; i < len(srcStr)-len(dstStr)+1; i++ {
+		for j = 0; j < len(dstStr); j++ {
 			if srcStr[i+j] != dstStr[j] {
 				break
 			}
 		}
-		if len(dstStr) == j{
+		if len(dstStr) == j {
 			return i
 		}
 	}
 
 	return -1
 }
-
 
 // 给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
 /*
@@ -99,19 +94,20 @@ func subsets(nums []int) [][]int {
 	return result
 }
 
-func backtrack(nums []int, pos int, list []int, result *[][]int){
+func backtrack(nums []int, pos int, list []int, result *[][]int) {
 	// 把临时结果复制出来保存到最终结果
 	ans := make([]int, len(list))
 	copy(ans, list)
 	*result = append(*result, ans)
-	for i := pos; i <len(nums) ; i++ {
+	for i := pos; i < len(nums); i++ {
 		list = append(list, nums[i])
-		backtrack(nums,i+1,list,result)
+		backtrack(nums, i+1, list, result)
 		list = list[0 : len(list)-1]
 	}
 }
 
-/*用 for 枚举出当前可选的数，比如选第一个数时：1、2、3 可选。
+/*
+用 for 枚举出当前可选的数，比如选第一个数时：1、2、3 可选。
 如果第一个数选 1，选第二个数，2、3 可选；
 如果第一个数选 2，选第二个数，只有 3 可选（不能选1，产生重复组合）
 如果第一个数选 3，没有第二个数可选
@@ -183,9 +179,7 @@ func subsets(nums []int) [][]int {
 	return res
 }
 
-
-
-func main(){
-	nums := []int{1,2,3}
+func main() {
+	nums := []int{1, 2, 3}
 	print(subsets(nums))
 }

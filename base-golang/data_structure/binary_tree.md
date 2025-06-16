@@ -264,7 +264,7 @@ func divideAndConquer(root *TreeNode) []int {
 }
 ```
 
-#### 归并排序  
+#### 归并排序 
 
 ```go
 func MergeSort(nums []int) []int {
@@ -308,7 +308,7 @@ func merge(left, right []int) (result []int) {
 
 > 递归需要返回结果用于合并
 
-#### 快速排序  
+#### 快速排序 
 
 ```go
 func QuickSort(nums []int) []int {
@@ -514,7 +514,7 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 
 [binary-tree-level-order-traversal](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
 
-> 给你一个二叉树，请你返回其按  **层序遍历**  得到的节点值。 （即逐层地，从左到右访问所有节点）
+> 给你一个二叉树，请你返回其按 **层序遍历** 得到的节点值。 （即逐层地，从左到右访问所有节点）
 
 思路：用一个队列记录一层的元素，然后扫描这一层元素添加下一层元素到队列（一个数进去出来一次，所以复杂度 O(logN)）
 
@@ -725,8 +725,8 @@ func helper(root *TreeNode) ResultType {
     //  5
     // / \
     // 1   4
-    //      / \
-    //     3   6
+    //     / \
+    //    3   6
 	result.Min = root
 	if left.Min != nil {
 		result.Min = left.Min

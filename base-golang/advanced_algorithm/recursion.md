@@ -8,7 +8,7 @@
 
 [reverse-string](https://leetcode-cn.com/problems/reverse-string/)
 
-> 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组  `char[]`  的形式给出。
+> 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 `char[]` 的形式给出。
 
 ```go
 func reverseString(s []byte) {
@@ -54,7 +54,7 @@ func helper(head *ListNode)*ListNode{
 
 [unique-binary-search-trees-ii](https://leetcode-cn.com/problems/unique-binary-search-trees-ii/)
 
-> 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
+> 给定一个整数 n，生成所有由 1 ...n 为节点所组成的二叉搜索树。
 
 ```go
 func generateTrees(n int) []*TreeNode {
@@ -91,10 +91,10 @@ func generate(start,end int)[]*TreeNode{
 
 [fibonacci-number](https://leetcode-cn.com/problems/fibonacci-number/)
 
-> 斐波那契数，通常用  F(n) 表示，形成的序列称为斐波那契数列。该数列由  0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
-> F(0) = 0,   F(1) = 1
+> 斐波那契数，通常用 F(n) 表示，形成的序列称为斐波那契数列。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：
+> F(0) = 0, F(1)= 1
 > F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
-> 给定  N，计算  F(N)。
+> 给定 N，计算 F(N)。
 
 ```go
 func fib(N int) int {

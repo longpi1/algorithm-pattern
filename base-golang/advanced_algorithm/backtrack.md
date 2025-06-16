@@ -102,7 +102,7 @@ func backtrack(nums []int, pos int, list []int, result *[][]int) {
 
 ### [permutations](https://leetcode-cn.com/problems/permutations/)
 
-> 给定一个   没有重复   数字的序列，返回其所有可能的全排列。
+> 给定一个  没有重复  数字的序列，返回其所有可能的全排列。
 
 思路：需要记录已经选择过的元素，满足条件的结果才进行返回
 

@@ -4,7 +4,7 @@
 
 先从一道题目开始~
 
-如题  [triangle](https://leetcode-cn.com/problems/triangle/)
+如题 [triangle](https://leetcode-cn.com/problems/triangle/)
 
 > 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
 
@@ -19,7 +19,7 @@
 ]
 ```
 
-自顶向下的最小路径和为  11（即，2 + 3 + 5 + 1 = 11）。
+自顶向下的最小路径和为 11（即，2+3+5+1= 11）。
 
 使用 DFS（遍历 或者 分治法）
 
@@ -158,7 +158,7 @@ Function(x) {
   - 求可行个数（Count(\*) ）
 - 满足不能排序或者交换（Can not sort / swap ）
 
-如题：[longest-consecutive-sequence](https://leetcode-cn.com/problems/longest-consecutive-sequence/)  位置可以交换，所以不用动态规划
+如题：[longest-consecutive-sequence](https://leetcode-cn.com/problems/longest-consecutive-sequence/) 位置可以交换，所以不用动态规划
 
 ## 四点要素
 
@@ -186,7 +186,7 @@ Function(x) {
 
 ### [minimum-path-sum](https://leetcode-cn.com/problems/minimum-path-sum/)
 
-> 给定一个包含非负整数的  *m* x *n*  网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
+> 给定一个包含非负整数的 *m*x*n* 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
 
 思路：动态规划
 1、state: f[x][y]从起点走到 x,y 的最短路径
@@ -302,7 +302,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 
 ### [climbing-stairs](https://leetcode-cn.com/problems/climbing-stairs/)
 
-> 假设你正在爬楼梯。需要  *n*  阶你才能到达楼顶。
+> 假设你正在爬楼梯。需要 *n* 阶你才能到达楼顶。
 
 ```go
 func climbStairs(n int) int {
@@ -493,7 +493,7 @@ func max(a, b int) int {
 
 ### [word-break](https://leetcode-cn.com/problems/word-break/)
 
-> 给定一个**非空**字符串  *s*  和一个包含**非空**单词列表的字典  *wordDict*，判定  *s*  是否可以被空格拆分为一个或多个在字典中出现的单词。
+> 给定一个**非空**字符串 *s* 和一个包含**非空**单词列表的字典 *wordDict*，判定 *s* 是否可以被空格拆分为一个或多个在字典中出现的单词。
 
 ```go
 func wordBreak(s string, wordDict []string) bool {
@@ -557,8 +557,8 @@ func inDict(s string,dict map[string]bool) bool {
 
 ### [longest-common-subsequence](https://leetcode-cn.com/problems/longest-common-subsequence/)
 
-> 给定两个字符串  text1 和  text2，返回这两个字符串的最长公共子序列。
-> 一个字符串的   子序列   是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+> 给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列。
+> 一个字符串的  子序列  是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
 > 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。两个字符串的「公共子序列」是这两个字符串所共同拥有的子序列。
 
 ```go
@@ -610,7 +610,7 @@ for i:=0;i<=len(a);i++ {
 
 ### [edit-distance](https://leetcode-cn.com/problems/edit-distance/)
 
-> 给你两个单词  word1 和  word2，请你计算出将  word1  转换成  word2 所使用的最少操作数  
+> 给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 
 > 你可以对一个单词进行如下三种操作：
 > 插入一个字符
 > 删除一个字符
@@ -660,7 +660,7 @@ func min(a,b int)int{
 
 ### [coin-change](https://leetcode-cn.com/problems/coin-change/)
 
-> 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回  -1。
+> 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
 
 思路：和其他 DP 不太一样，i 表示钱或者容量
 

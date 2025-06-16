@@ -35,7 +35,7 @@ func deleteDuplicates(head *ListNode) *ListNode {
 
 ### [remove-duplicates-from-sorted-list-ii](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
 
-> 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中   没有重复出现的数字。
+> 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中  没有重复出现的数字。
 
 思路：链表头结点可能被删除，所以用 dummy node 辅助删除
 
@@ -95,7 +95,7 @@ func reverseList(head *ListNode) *ListNode {
 
 ### [reverse-linked-list-ii](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
 
-> 反转从位置  *m*  到  *n*  的链表。请使用一趟扫描完成反转。
+> 反转从位置 *m* 到 *n* 的链表。请使用一趟扫描完成反转。
 
 思路：先遍历到 m 处，翻转，再拼接后续，注意指针处理
 
@@ -178,7 +178,7 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 
 ### [partition-list](https://leetcode-cn.com/problems/partition-list/)
 
-> 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于  *x*  的节点都在大于或等于  *x*  的节点之前。
+> 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 *x* 的节点都在大于或等于 *x* 的节点之前。
 
 思路：将大于 x 的节点，放到另外一个链表，最后连接这两个链表
 
@@ -219,7 +219,7 @@ func partition(head *ListNode, x int) *ListNode {
 
 ### [sort-list](https://leetcode-cn.com/problems/sort-list/)
 
-> 在  *O*(*n* log *n*) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+> 在 *O*(*n*log*n*) 时间复杂度和常数级空间复杂度下，对链表进行排序。
 
 思路：归并排序，找中点和合并操作
 
@@ -291,8 +291,8 @@ func mergeSort(head *ListNode) *ListNode {
 
 ### [reorder-list](https://leetcode-cn.com/problems/reorder-list/)
 
-> 给定一个单链表  *L*：*L*→*L*→…→*L\_\_n*→*L*
-> 将其重新排列后变为： *L*→*L\_\_n*→*L*→*L\_\_n*→*L*→*L\_\_n*→…
+> 给定一个单链表 *L*：*L*→*L*→…→*L\_\_n*→*L*
+> 将其重新排列后变为：*L*→*L\_\_n*→*L*→*L\_\_n*→*L*→*L\_\_n*→…
 
 思路：找到中点断开，翻转后面部分，然后合并前后两个链表
 
@@ -392,7 +392,7 @@ func hasCycle(head *ListNode) bool {
 
 ### [linked-list-cycle-ii](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
-> 给定一个链表，返回链表开始入环的第一个节点。  如果链表无环，则返回  `null`。
+> 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 `null`。
 
 思路：快慢指针，快慢相遇之后，慢指针回到头，快慢指针步调一致一起移动，相遇点即为入环点
 ![cycled_linked_list](https://img.fuiboom.com/img/cycled_linked_list.png)

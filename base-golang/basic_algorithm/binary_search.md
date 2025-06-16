@@ -17,7 +17,7 @@
 
 [binary-search](https://leetcode-cn.com/problems/binary-search/)
 
-> 给定一个  n  个元素有序的（升序）整型数组  nums 和一个目标值  target  ，写一个函数搜索  nums  中的 target，如果目标值存在返回下标，否则返回 -1。
+> 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
 
 ```go
 // 二分搜索最常用模板
@@ -178,7 +178,7 @@ func searchInsert(nums []int, target int) int {
 
 ### [search-a-2d-matrix](https://leetcode-cn.com/problems/search-a-2d-matrix/)
 
-> 编写一个高效的算法来判断  m x n  矩阵中，是否存在一个目标值。该矩阵具有如下特性：
+> 编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：
 >
 > - 每行中的整数从左到右按升序排列。
 > - 每行的第一个整数大于前一行的最后一个整数。
@@ -215,7 +215,7 @@ func searchMatrix(matrix [][]int, target int) bool {
 ### [first-bad-version](https://leetcode-cn.com/problems/first-bad-version/)
 
 > 假设你有 n 个版本 [1, 2, ..., n]，你想找出导致之后所有版本出错的第一个错误的版本。
-> 你可以通过调用  bool isBadVersion(version)  接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
+> 你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。
 
 ```go
 func firstBadVersion(n int) int {
@@ -239,7 +239,7 @@ func firstBadVersion(n int) int {
 
 ### [find-minimum-in-rotated-sorted-array](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
 
-> 假设按照升序排序的数组在预先未知的某个点上进行了旋转( 例如，数组  [0,1,2,4,5,6,7] 可能变为  [4,5,6,7,0,1,2] )。
+> 假设按照升序排序的数组在预先未知的某个点上进行了旋转( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2])。
 > 请找出其中最小的元素。
 
 ```go
@@ -270,7 +270,7 @@ func findMin(nums []int) int {
 ### [find-minimum-in-rotated-sorted-array-ii](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
 
 > 假设按照升序排序的数组在预先未知的某个点上进行了旋转
-> ( 例如，数组  [0,1,2,4,5,6,7] 可能变为  [4,5,6,7,0,1,2] )。
+> ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2])。
 > 请找出其中最小的元素。(包含重复元素)
 
 ```go
@@ -307,8 +307,8 @@ func findMin(nums []int) int {
 ### [search-in-rotated-sorted-array](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
 
 > 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
-> ( 例如，数组  [0,1,2,4,5,6,7]  可能变为  [4,5,6,7,0,1,2] )。
-> 搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回  -1 。
+> ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2])。
+> 搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1。
 > 你可以假设数组中不存在重复的元素。
 
 ```go
@@ -356,8 +356,8 @@ func search(nums []int, target int) int {
 ### [search-in-rotated-sorted-array-ii](https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/)
 
 > 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
-> ( 例如，数组  [0,0,1,2,2,5,6]  可能变为  [2,5,6,0,0,1,2] )。
-> 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回  true，否则返回  false。(包含重复元素)
+> ( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2])。
+> 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。(包含重复元素)
 
 ```go
 func search(nums []int, target int) bool {

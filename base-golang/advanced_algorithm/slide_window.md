@@ -109,7 +109,7 @@ func minWindow(s string, t string) string {
 
 [permutation-in-string](https://leetcode-cn.com/problems/permutation-in-string/)
 
-> 给定两个字符串  **s1**  和  **s2**，写一个函数来判断  **s2**  是否包含  **s1 **的排列。
+> 给定两个字符串 **s1** 和 **s2**，写一个函数来判断 **s2** 是否包含 **s1**的排列。
 
 ```go
 func checkInclusion(s1 string, s2 string) bool {
@@ -153,7 +153,7 @@ func checkInclusion(s1 string, s2 string) bool {
 
 [find-all-anagrams-in-a-string](https://leetcode-cn.com/problems/find-all-anagrams-in-a-string/)
 
-> 给定一个字符串  **s **和一个非空字符串  **p**，找到  **s **中所有是  **p **的字母异位词的子串，返回这些子串的起始索引。
+> 给定一个字符串 **s**和一个非空字符串 **p**，找到 **s**中所有是 **p**的字母异位词的子串，返回这些子串的起始索引。
 
 ```go
 func findAnagrams(s string, p string) []int {
@@ -197,8 +197,8 @@ func findAnagrams(s string, p string) []int {
 
 [longest-substring-without-repeating-characters](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
-> 给定一个字符串，请你找出其中不含有重复字符的   最长子串   的长度。
-> 示例  1:
+> 给定一个字符串，请你找出其中不含有重复字符的  最长子串  的长度。
+> 示例 1:
 >
 > 输入: "abcabcbb"
 > 输出: 3
