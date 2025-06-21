@@ -19,15 +19,13 @@ F(n) = F(n - 1) + F(n - 2)，其中 n > 1
 输出：3
 解释：F(4) = F(3) + F(2) = 2 + 1 = 3
 */
-
 func fib(n int) int {
-	if n < 2 {
+	if n <= 1 {
 		return n
-	}else {
-		return fib(n-1) + fib(n-2)
 	}
-}
+	return fib(n-1) + fib(n-2)
 
+}
 
 // 基于动态规划思路
 func climbStairs(n int) int {

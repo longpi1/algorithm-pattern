@@ -21,6 +21,10 @@ package main
 输出：1
 */
 
+func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+
+}
+
 /*
 本题是62.不同路径的障碍版，整体思路大体一致。
 
@@ -56,7 +60,3 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	}
 	return dp[m-1][n-1]
 }
-
-
-
-

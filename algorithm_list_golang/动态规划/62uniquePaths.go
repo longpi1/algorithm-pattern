@@ -1,4 +1,5 @@
 package main
+
 /*、
 62. 不同路径
 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
@@ -25,6 +26,14 @@ package main
 输出：6
 
 */
+
+func uniquePaths(m int, n int) int {
+	dp := make([][]int, 0)
+	dp[0][0] = 0
+	dp[1][1] = 1
+
+}
+
 /*
 解题思路：
 思路与算法
@@ -39,13 +48,18 @@ f(i,j)=f(i−1,j)+f(i,j−1)
 初始条件为 f(0,0)=1，即从左上角走到左上角有一种方法。
 
 最终的答案即为 f(m−1,n−1)
-
 */
 func uniquePaths(m int, n int) int {
 	// 创建一个二维动态规划数组dp，dp[i][j]表示从起点到(i, j)位置的不同路径数
 	dp := make([][]int, n)
 
 	// 初始化二维数组的每个元素
+	/*
+		dp := make([][]int, n) 这一行只创建了外层切片，它包含了 n 个 nil 的 []int 切片。
+		在内部循环中，当你尝试访问 dp[i][j] (例如 dp[0][0]) 时，因为 dp[i] (即 dp[0]) 还是 nil，并没有分配实际的内存来存储列数据，
+		所以会发生运行时panic(panic: runtime error: index out of range [0] with length 0 或者 panic: runtime error: assignment to entry in nil map)。
+		修正方法：你需要在外层循环内部为每一行 dp[i] 初始化一个长度为 m 的切片：dp[i] = make([]int, m)。
+	*/
 	for i := 0; i < n; i++ {
 		dp[i] = make([]int, m)
 	}
@@ -72,9 +86,43 @@ func uniquePaths(m int, n int) int {
 	return dp[n-1][m-1]
 }
 
+func uniquePaths(m int, n int) int {
+	// m: 网格的行数
+	// n: 网格的列数
 
-func main(){
+	if m == 0 || n == 0 {
+		return 0 // 处理无效输入
+	}
+	if m == 1 || n == 1 { // 如果只有一行或一列，路径只有1种
+		return 1
+	}
+
+	// 创建一个二维动态规划数组dp，dp[i][j]表示从起点到(i, j)位置的不同路径数
+	// dp 表有 m 行 n 列
+	dp := make([][]int, m)
+
+	// 遍历二维数组的每个元素
+	for i := 0; i < m; i++ { // 遍历行
+		dp[i] = make([]int, n)   // 为第 i 行分配 n 列的空间
+		for j := 0; j < n; j++ { // 遍历列
+			if i == 0 || j == 0 {
+				// 如果在第一行 (i=0) 或第一列 (j=0)，
+				// 只能一直向右或一直向下，所以只有一种路径到达
+				dp[i][j] = 1
+			} else {
+				// 对于其他位置(i, j)，路径数等于从上方格子到达的路径数
+				// 加上从左方格子到达的路径数之和
+				dp[i][j] = dp[i-1][j] + dp[i][j-1]
+			}
+		}
+	}
+
+	// 返回终点 (m-1, n-1) 的路径数
+	return dp[m-1][n-1]
+}
+
+func main() {
 	m := 7
 	n := 3
-	print(uniquePaths(m,n))
+	print(uniquePaths(m, n))
 }
