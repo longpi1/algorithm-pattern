@@ -1,4 +1,5 @@
 package main
+
 /*
 这道题目和198.打家劫舍是差不多的，唯一区别就是成环了。
 分两种情况考虑：
@@ -6,10 +7,10 @@ package main
 2.考虑包含尾元素，不包含首元素
 《代码随想录》算法视频公开课：动态规划，房间连成环了那还偷不偷呢？| LeetCode：213.打家劫舍II，相信结合视频再看本篇题解，更有助于大家对本题的理解。
 
-作者：代码随想录
-链接：https://leetcode.cn/problems/house-robber-ii/
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+分类讨论，考虑是否偷 nums[0]：
+如果偷 nums[0]，那么 nums[1] 和 nums[n−1] 不能偷，问题变成从 nums[2] 到 nums[n−2] 的非环形版本，调用 198 题的代码解决；
+如果不偷 nums[0]，那么问题变成从 nums[1] 到 nums[n−1] 的非环形版本，同样调用 198 题的代码解决。
+
 */
 
 func dfs(nums []int) int {
@@ -41,5 +42,3 @@ func rob(nums []int) int {
 	// 返回两个子问题的最大抢劫价值中的较大者
 	return max(dfs(nums[:n-1]), dfs(nums[1:]))
 }
-
-
