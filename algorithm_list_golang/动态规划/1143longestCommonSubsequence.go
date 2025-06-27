@@ -1,6 +1,5 @@
 package main
 
-
 /*
 1143. 最长公共子序列
 
@@ -22,6 +21,59 @@ package main
 输出：0
 解释：两个字符串没有公共子序列，返回 0 。
 */
+
+// 下述为错误代码：
+/*
+错误原因
+逻辑错误：该算法没有实现LCS的逻辑。它只是简单地统计了在两个字符串中，字符两两相等的次数。
+不考虑顺序：LCS的核心在于保持字符的相对顺序。例如，对于text1="banana"和text2="atana"，LCS是"aana"（长度4）。当前代码可能会错误地计算匹配。
+不考虑“最长”：LCS是一个优化问题，需要找到长度最长的那个公共子序列。当前代码只是计数。
+*/
+func longestCommonSubsequence(text1 string, text2 string) int {
+	if len(text1) == 0 || len(text2) == 0 {
+		return 0
+	}
+	s1 := []byte(text1)
+	s2 := []byte(text2)
+	result := 0
+	// 外层循环遍历 text1 中的每个字符
+	for i := 0; i < len(s1); i++ {
+		// 内层循环遍历 text2 中的每个字符
+		for j := 0; j < len(s2); j++ {
+			// 如果 text1[i] 和 text2[j] 相等
+			if s1[i] == s2[j] {
+				// 错误点：仅仅因为两个字符相等就增加 result。
+				// 这没有考虑字符的顺序，也没有试图构建一个“子序列”。
+				// 例如：text1 = "aa", text2 = "a"
+				// i=0, s1[0]='a':
+				//   j=0, s2[0]='a': s1[0]==s2[0], result = 1
+				// i=1, s1[1]='a':
+				//   j=0, s2[0]='a': s1[1]==s2[0], result = 2
+				// 返回 2，但LCS是 "a"，长度为1。
+
+				// 再例如：text1 = "abc", text2 = "axbyc"
+				// 'a' vs 'a': result = 1
+				// 'b' vs 'b': result = 2
+				// 'c' vs 'c': result = 3
+				// 返回 3，这是正确的。
+
+				// 但如果 text1 = "aba", text2 = "bab"
+				// i=0, s1[0]='a':
+				//   j=1, s2[1]='a': result = 1
+				// i=1, s1[1]='b':
+				//   j=0, s2[0]='b': result = 2
+				//   j=2, s2[2]='b': result = 3
+				// i=2, s1[2]='a':
+				//   j=1, s2[1]='a': result = 4
+				// 返回 4。但LCS可以是 "ab" 或 "ba"，长度都是2。
+				// 这个算法计算的是 s1 中的每个字符在 s2 中出现的次数之和 (如果字符相同)。
+				result++
+			}
+		}
+	}
+	return result
+}
+
 /*
 func longestCommonSubsequence(text1 string, text2 string) int {
 	s1 := len(text1)
@@ -29,7 +81,6 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 
 }
 */
-
 
 /*
 
@@ -48,7 +99,6 @@ dp[i][j]：长度为[0, i - 1]的字符串text1与长度为[0, j - 1]的字符�
 即：dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
 
 */
-
 
 // longestCommonSubsequence 计算两个字符串的最长公共子序列的长度
 func longestCommonSubsequence(text1 string, text2 string) int {
