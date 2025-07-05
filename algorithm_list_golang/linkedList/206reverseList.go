@@ -40,16 +40,49 @@ package main
 //
 //	Next *ListNode
 //}
+/*
+这段「翻转链表」的实现最大的问题是——把一个额外创建的哑结点 (pre := &ListNode{Next: head})
+硬塞进了最终结果里，导致返回的链表：
+多了一个不应该存在的额外节点（dummy）；
+更严重的是产生了环，遍历会死循环。
+一步步看就很直观：
 
+假设原链表：1 → 2 → nil
+
+① 创建哑结点
+pre(dummy) → 1 → 2 → nil
+head = 1
+② 第一轮循环
+next = 2
+head.Next = pre       // 1 → dummy
+pre = head            // pre = 1
+head = next           // head = 2
+此时局部结构：1 ↔ dummy（dummy.Next 还指向 1，环出现）
+
+③ 第二轮循环
+next = nil
+head.Next = pre       // 2 → 1 ↔ dummy (环持续)
+pre = head            // pre = 2
+head = next = nil     // 循环结束
+返回 pre 后得到：
+2 → 1 ↔ dummy → 1 ↔ dummy …（无限循环）
+
+除了形成环，额外节点还白占了一次内存分配。
+正确的做法很简单，把 pre 初始化为 nil 即可：
+*/
 func reverseList(head *ListNode) *ListNode {
-	newHead := &ListNode{Next: head}
-	for newHead != nil && newHead.Next != nil {
-		next := newHead.Next
-		next.Next = pre
-		head.Next = next.Next
-		pre = next
+	if head == nil {
+		return head
 	}
-	return newHead.Next
+	//错误1 正确的做法很简单，把 pre 初始化为 nil 即可： var pre *ListNode
+	pre := &ListNode{Next: head}
+	for head != nil {
+		next := head.Next
+		head.Next = pre
+		pre = head
+		head = next
+	}
+	return pre
 }
 
 /*

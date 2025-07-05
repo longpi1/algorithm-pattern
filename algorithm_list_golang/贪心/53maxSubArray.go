@@ -18,21 +18,46 @@ import "math"
 示例 3：
 输入：nums = [5,4,-1,7,8]
 输出：23
-
 */
-
+// 下述思路错误，效率低下n平方，并且可能错过正解
 func maxSubArray(nums []int) int {
 	n := len(nums)
-	if n ==1 {
+	if n == 0 {
+		return 0
+	}
+	left := 0
+	result := math.MinInt64
+	for left < n {
+		tmp := 0
+		isChange := false
+		for i := left; i < n; i++ {
+			if tmp < 0 && nums[i] > tmp {
+				left = i
+				isChange = true
+				tmp += nums[i]
+				break
+			}
+			tmp += nums[i]
+		}
+		if !isChange {
+			left++
+		}
+		result = max(result, tmp)
+	}
+	return result
+}
+func maxSubArray(nums []int) int {
+	n := len(nums)
+	if n == 1 {
 		return nums[0]
 	}
 	result := math.MinInt64
-	for first := 0; first < n ; first++ {
+	for first := 0; first < n; first++ {
 		sum := nums[first]
 		if sum > result {
 			result = sum
 		}
-		for second := first +1; second < n; second++ {
+		for second := first + 1; second < n; second++ {
 			sum += nums[second]
 			if sum > result {
 				result = sum
@@ -68,7 +93,7 @@ func maxSubArray(nums []int) int {
 if (count > result) result = count;
 这样相当于是用 result 记录最大子序和区间和（变相的算是调整了终止位置）。
 */
-
+// 贪心思路
 func maxSubArray(nums []int) int {
 	maxSum := nums[0] // 初始化最大子数组和为第一个元素
 	for i := 1; i < len(nums); i++ {
@@ -86,10 +111,35 @@ func maxSubArray(nums []int) int {
 	return maxSum // 返回最大子数组和
 }
 
+// 动态规划思路
+func maxSubArray(nums []int) int {
+	n := len(nums)
+	if n == 0 {
+		return 0 // 或者根据题目要求返回错误/特定值
+	}
 
+	// globalMax 用于存储全局最大和，初始化为第一个元素
+	globalMax := nums[0]
+	// currentMax 用于存储以当前元素结尾的子数组的最大和
+	currentMax := nums[0]
 
+	// 从第二个元素开始遍历
+	for i := 1; i < n; i++ {
+		num := nums[i]
 
-func main(){
-	nums := []int{-2,1,-3,4,-1,2,1,-5,4}
+		// 核心动态规划步骤：
+		// 选择是开启一个新的子数组（仅含当前元素num），
+		// 还是将当前元素加入到之前的子数组中。
+		currentMax = max(num, currentMax+num)
+
+		// 每次更新完 currentMax后，都用它来尝试更新全局最大值
+		globalMax = max(globalMax, currentMax)
+	}
+
+	return globalMax
+}
+
+func main() {
+	nums := []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
 	print(maxSubArray(nums))
 }

@@ -1,8 +1,10 @@
 package main
+
+import "fmt"
+
 /*
 73. 矩阵置零
 给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
-
 
 示例 1：
 输入：matrix = [[1,1,1],[1,0,1],[1,1,1]]
@@ -10,8 +12,31 @@ package main
 示例 2：
 输入：matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
 输出：[[0,0,0,0],[0,4,5,0],[0,3,1,0]]
-
 */
+func setZeroes(matrix [][]int) {
+	rowsMap := make(map[int]bool)
+	columnsMap := make(map[int]bool)
+	n := len(matrix)
+	m := len(matrix[0])
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if matrix[i][j] == 0 {
+				rowsMap[i] = true
+				columnsMap[j] = true
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		_, isRowHas := rowsMap[i]
+		for j := 0; j < m; j++ {
+			_, isColumnHas := columnsMap[j]
+			if isColumnHas || isRowHas {
+				matrix[i][j] = 0
+			}
+		}
+	}
+}
+
 /*
 func setZeroes(matrix [][]int)  {
 	n := len(matrix)
@@ -32,10 +57,9 @@ func setZeroes(matrix [][]int)  {
 
 }*/
 
-
-func setZeroes(matrix [][]int) {
+func setZeroes2(matrix [][]int) {
 	// 创建两个布尔数组，用于记录哪些行和列需要被置零
-	row := make([]bool, len(matrix)) // 记录行的状态
+	row := make([]bool, len(matrix))    // 记录行的状态
 	col := make([]bool, len(matrix[0])) // 记录列的状态
 
 	// 第一次遍历矩阵，标记为零的行和列
@@ -63,7 +87,7 @@ func setZeroes(matrix [][]int) {
 //这样，第一列的第一个元素即可以标记第一行是否出现 000。但为了防止每一列的第一个元素被提前更新，
 //我们需要从最后一行开始，倒序地处理矩阵元素。
 
-func setZeroes(matrix [][]int) {
+func setZeroes3(matrix [][]int) {
 	// 获取矩阵的行数和列数
 	n, m := len(matrix), len(matrix[0])
 	// 初始化两个标志位，用于标记第一行和第一列是否需要被置零
@@ -117,10 +141,8 @@ func setZeroes(matrix [][]int) {
 	}
 }
 
-
-
-
-func main(){
-	nums := [][]int{{1,1,1},{1,0,1},{1,1,1}}
+func main() {
+	nums := [][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}
 	setZeroes(nums)
+	fmt.Printf("result: %v", nums)
 }

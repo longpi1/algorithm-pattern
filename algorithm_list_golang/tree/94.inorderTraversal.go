@@ -34,7 +34,9 @@ package main
  *     Right *TreeNode
  * }
  */
+func inorderTraversal(root *TreeNode) []int {
 
+}
 func inorderTraversal(root *TreeNode) []int {
 	if root == nil {
 		return []int{}
@@ -127,7 +129,7 @@ func inorderTraversal(root *TreeNode) []int {
 	// 1.创建一个空切片 res 用于存储中序遍历的结果。
 	res := []int{}
 	// 2.创建一个空栈 stack 用于辅助遍历。
-	stack := []*TreeNode{}
+	var stack []*TreeNode
 	// 3.使用一个循环，将当前节点 root 的左子树上的所有节点都入栈，并不断更新 root 到左子节点，直到 root 为空或没有左子节点为止。这个过程将把左子树上的所有节点都依次入栈。
 	for root != nil {
 		stack = append(stack, root)

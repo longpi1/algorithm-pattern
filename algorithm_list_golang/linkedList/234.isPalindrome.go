@@ -12,6 +12,18 @@ package main
 输出：false
 */
 
+func isPalindrome(head *ListNode) bool {
+	if head == nil {
+		return false
+	}
+	slow, fast := head, head
+	for fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+}
+
 //// 利用切片判断
 //func isPalindrome(head *ListNode) bool {
 //	cur := head

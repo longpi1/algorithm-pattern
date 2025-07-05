@@ -45,6 +45,21 @@ skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
 //}
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	m := make(map[*ListNode]bool)
+	for headA != nil {
+		m[headA] = true
+		headA = headA.Next
+	}
+	for headB != nil {
+		if m[headB] {
+			return headB
+		}
+		headB = headB.Next
+	}
+	return nil
+}
+
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	/*
 		// 第一次做错误，应该改为直接用对应节点为map的key
 		m := make(map[int]bool)
