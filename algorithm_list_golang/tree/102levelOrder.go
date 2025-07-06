@@ -28,6 +28,34 @@ type TreeNode1 struct {
 
 func levelOrder(root *TreeNode) [][]int {
 	if root == nil {
+		return nil
+	}
+	result := make([][]int, 0)
+	queue := []*TreeNode{root}
+	tmp := make([]*TreeNode, 0)
+	tmpData := make([]int, 0)
+	for len(queue) != 0 {
+		node := queue[0]
+		queue = queue[1:]
+
+		if len(queue) == 0 {
+			result = append(result, tmpData)
+			queue = tmp
+			tmp = make([]*TreeNode, 0)
+		}
+		if node.Left != nil {
+			tmp = append(tmp, node.Left)
+			tmpData = append(tmpData, node.Left.Val)
+		}
+		if node.Right != nil {
+			tmp = append(tmp, node.Right)
+			tmpData = append(tmpData, node.Right.Val)
+		}
+	}
+	return result
+}
+func levelOrder(root *TreeNode) [][]int {
+	if root == nil {
 		return [][]int{}
 	}
 	result := make([][]int, 0)

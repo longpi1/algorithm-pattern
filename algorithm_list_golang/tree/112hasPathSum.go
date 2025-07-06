@@ -31,11 +31,11 @@ sum ： 从根节点到叶子节点的路径上的节点值相加的目标和
 时间复杂度：O(n)，每个节点被遍历一次
 
 */
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
+//type TreeNode struct {
+//	Val int
+//	Left *TreeNode
+//	Right *TreeNode
+//}
 // 基于递归思路
 /*func hasPathSum(root *TreeNode, targetSum int) bool {
 	// 如果根节点为空，返回 false
@@ -103,12 +103,7 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 	return false
 }
 
-
-
-func main(){
-	root :=	&TreeNode{Val: 5,Left: &TreeNode{Val: 4,Left: &TreeNode{Val: 11,Left: &TreeNode{Val: 7},Right: &TreeNode{Val: 2}}},Right: &TreeNode{Val: 8,Left: &TreeNode{Val: 13},Right: &TreeNode{Val: 4,Right: &TreeNode{Val: 1}}}}
+func main() {
+	root := &TreeNode{Val: 5, Left: &TreeNode{Val: 4, Left: &TreeNode{Val: 11, Left: &TreeNode{Val: 7}, Right: &TreeNode{Val: 2}}}, Right: &TreeNode{Val: 8, Left: &TreeNode{Val: 13}, Right: &TreeNode{Val: 4, Right: &TreeNode{Val: 1}}}}
 	print(hasPathSum(root, 22))
 }
-
-
-

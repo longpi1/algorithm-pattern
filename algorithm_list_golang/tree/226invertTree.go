@@ -1,6 +1,7 @@
 package main
 
 /*
+226. 翻转二叉树
 给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
 示例 1：
 输入：root = [4,2,7,1,3,6,9]
@@ -19,6 +20,28 @@ package main
 树中节点数目范围在 [0, 100] 内
 -100 <= Node.val <= 100
 */
+
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	queue := []*TreeNode{root}
+
+	if len(queue) != 0 {
+		size := len(queue)
+		tmp := make([]*TreeNode, 0, size)
+		for i := 0; i < size; i++ {
+			node := queue[i]
+			node.Left
+			tmp = append(queue, node.Left)
+			tmp = append(queue, node.Right)
+		}
+
+	}
+
+	return root
+}
+
 func invertTree(root *TreeNode) *TreeNode {
 	if root == nil {
 		return nil

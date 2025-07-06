@@ -33,6 +33,24 @@ n == grid[i].length
 1 <= m, n <= 300
 grid[i][j] 的值为 '0' 或 '1'
 */
+
+func numIslands(grid [][]byte) int {
+	n := len(grid)
+	m := len(grid[0])
+	result := 0
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if i == 0 && grid[i][j] == '1' && (grid[i-1][j] == '0' && grid[i+1][j] == '0') || (grid[i][j-1] == '0' && grid[i][j+1] == '0') {
+
+			}
+			if grid[i][j] == '1' && (grid[i-1][j] == '0' && grid[i+1][j] == '0') || (grid[i][j-1] == '0' && grid[i][j+1] == '0') {
+				result++
+			}
+		}
+	}
+	return result
+}
+
 /*
 思路一：深度优先遍历 DFS
 目标是找到矩阵中 “岛屿的数量” ，上下左右相连的 1 都被认为是连续岛屿。
@@ -52,7 +70,7 @@ func numIslands(grid [][]byte) int {
 	// 定义 DFS 函数，用于搜索相邻的陆地
 	var dfs func(grid [][]byte, i, j int)
 	dfs = func(grid [][]byte, i, j int) {
-		if i < 0 || i >= len(grid) || j < 0 || j >= len(grid[0]) || grid[i][j] =='0' {
+		if i < 0 || i >= len(grid) || j < 0 || j >= len(grid[0]) || grid[i][j] == '0' {
 			return
 		}
 		grid[i][j] = '0' // 标记当前位置为已访问
@@ -77,9 +95,7 @@ func numIslands(grid [][]byte) int {
 	return count
 }
 
-
 /*
-
 思路二：广度优先遍历 BFS
 主循环和思路一类似，不同点是在于搜索某岛屿边界的方法不同。
 bfs 方法：
@@ -87,9 +103,8 @@ bfs 方法：
 若是则置零（删除岛屿节点），并将此节点上下左右节点 (i+1,j),(i-1,j),(i,j+1),(i,j-1) 加入队列；
 若不是则跳过此节点；
 循环 pop 队列首节点，直到整个队列为空，此时已经遍历完此岛屿。
-
 */
-func  numIslands(grid [][]byte) int {
+func numIslands(grid [][]byte) int {
 	// 定义 BFS 函数，用于搜索相邻的陆地
 	bfs := func(grid [][]byte, i, j int) {
 		queue := [][]int{{i, j}}
@@ -100,9 +115,9 @@ func  numIslands(grid [][]byte) int {
 			i, j := node[0], node[1]
 
 			// 检查当前位置是否为陆地
-			if 0 <= i && i < len(grid) && 0 <= j && j < len(grid[0]) && grid[i][j] ==  '1'  {
+			if 0 <= i && i < len(grid) && 0 <= j && j < len(grid[0]) && grid[i][j] == '1' {
 				// 标记当前位置为已访问
-				grid[i][j] =  '0'
+				grid[i][j] = '0'
 				// 将相邻的陆地位置加入队列
 				queue = append(queue, []int{i + 1, j}, []int{i - 1, j}, []int{i, j - 1}, []int{i, j + 1})
 			}
@@ -132,7 +147,6 @@ func main() {
 		{'0', '0', '1', '0', '0'},
 		{'0', '0', '0', '1', '1'},
 	}
-
 
 	result := numIslands(grid)
 	fmt.Println("Number of islands:", result)
