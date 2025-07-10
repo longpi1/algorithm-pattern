@@ -1,7 +1,5 @@
 package main
 
-
-
 /*
 136. 只出现一次的数字
 给你一个 非空 整数数组 nums ，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
@@ -17,11 +15,16 @@ package main
 示例 3 ：
 输入：nums = [1]
 输出：1
-
 */
+func singleNumber(nums []int) int {
+	result := 0
+	for i := 0; i < len(nums); i++ {
+		result = result ^ nums[i]
+	}
+	return result
+}
 
 /*
-
 解题思路：
 拿到这道题，若不考虑复杂度，相信大家都能做出来，但是最终的复杂度基本都是 nnn。
 
@@ -42,4 +45,3 @@ func singleNumber(nums []int) int {
 	}
 	return single
 }
-

@@ -1,5 +1,6 @@
 package main
 
+import "fmt"
 
 /*
 74. 搜索二维矩阵
@@ -14,19 +15,57 @@ package main
 示例 2：
 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13
 输出：false
-
 */
-
 func searchMatrix(matrix [][]int, target int) bool {
-	i, j := 0, len(matrix[0])-1 // 起始点是右上角
-	for i < len(matrix) && j >= 0 {
-		if matrix[i][j] == target {
-			return true
-		} else if matrix[i][j] < target {
-			i++ // 则matrix[i][j]左边的数，均小于target, 则可排除此行, 则行号+1即可
+	if matrix == nil {
+		return false
+	}
+	n, m := len(matrix), len(matrix[0])
+	left1, right1 := 0, n-1
+	left2, right2 := 0, m-1
+	for left1 <= right1 {
+		mid1 := left1 + (right1-left1)/2
+		//fmt.Println("mid1:", mid1)
+		if matrix[mid1][0] <= target && matrix[mid1][m-1] >= target {
+			for left2 <= right2 {
+				mid2 := left2 + (right2-left2)/2
+				//fmt.Println("mid2:", mid2)
+				if matrix[mid1][mid2] == target {
+					return true
+				}
+				if matrix[mid1][mid2] > target {
+					right2 = mid2 - 1
+				} else {
+					left2 = mid2 + 1
+				}
+			}
+
+			return false
+		} else if matrix[mid1][m-1] < target {
+			left1 = mid1 + 1
 		} else {
-			j-- // 则matrix[i][j]上边的数，均小于target, 则可排除此列, 则列号-1即可
+			right1 = mid1 - 1
 		}
 	}
 	return false
+}
+
+//func searchMatrix(matrix [][]int, target int) bool {
+//	i, j := 0, len(matrix[0])-1 // 起始点是右上角
+//	for i < len(matrix) && j >= 0 {
+//		if matrix[i][j] == target {
+//			return true
+//		} else if matrix[i][j] < target {
+//			i++ // 则matrix[i][j]左边的数，均小于target, 则可排除此行, 则行号+1即可
+//		} else {
+//			j-- // 则matrix[i][j]上边的数，均小于target, 则可排除此列, 则列号-1即可
+//		}
+//	}
+//	return false
+//}
+
+func main() {
+	matrix := [][]int{{1, 3, 5, 7}, {10, 11, 16, 20}, {23, 30, 34, 60}}
+	falg := searchMatrix(matrix, 3)
+	fmt.Println("result:", falg)
 }

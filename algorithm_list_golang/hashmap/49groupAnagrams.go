@@ -21,6 +21,9 @@ import (
 
 */
 
+func groupAnagrams(strs []string) [][]string {
+
+}
 
 /*func groupAnagrams(strs []string) [][]string {
 	m := make(map[string][]string)
@@ -75,7 +78,6 @@ func groupAnagrams(strs []string) [][]string {
 	}
 	return result
 }
-
 
 func main() {
 	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}

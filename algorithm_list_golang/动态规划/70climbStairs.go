@@ -34,6 +34,19 @@ climbStairs(3) = climbStairs(2) + climbStairs(1)
 这种纯递归的时间复杂度是 O(2^n)，会随着 n 的增大呈指数级增长，很快就会导致栈溢出或计算超时。对于 LeetCode 等在线判题系统，当 n 超过 40 左右时，通常就会超时。
 */
 func climbStairs(n int) int {
+	if n <= 2 {
+		return n
+	}
+	dp := make([]int, n+1)
+	dp[0] = 0
+	dp[1] = 1
+	dp[2] = 2
+	for i := 3; i <= n; i++ {
+		dp[i] = dp[i-1] + dp[i-2]
+	}
+	return dp[n]
+}
+func climbStairs(n int) int {
 	// 基础情况 (Base Cases):
 	// 如果 n <= 3，直接返回 n。
 	// 这包含了 n=1 (返回1种), n=2 (返回2种), n=3 (返回3种)

@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 /*
 给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。
 在每一天，你可以决定是否购买和/或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。
@@ -30,6 +32,13 @@ package main
 1 <= prices.length <= 3 * 104
 0 <= prices[i] <= 104
 */
+
+func maxProfit(prices []int) int {
+	maxPrice := math.MaxInt64
+	for i := 0; i < len(prices); i++ {
+
+	}
+}
 
 func maxProfit(prices []int) int {
 	result := 0

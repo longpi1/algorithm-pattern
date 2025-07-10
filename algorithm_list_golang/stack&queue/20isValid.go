@@ -13,7 +13,6 @@ import (
 左括号必须以正确的顺序闭合。
 每个右括号都有一个对应的相同类型的左括号。
 
-
 示例 1：
 
 输入：s = "()"
@@ -27,14 +26,41 @@ import (
 输入：s = "(]"
 输出：false
 
-
 提示：
 
 1 <= s.length <= 104
 s 仅由括号 '()[]{}' 组成
 */
-// 这是第一版做法，存在错误与优化空间，正确答案在后面
 func isValid(s string) bool {
+	m := make(map[byte]byte)
+	m[']'] = '['
+	m['}'] = '{'
+	m[')'] = '('
+	strs := []byte(s)
+	stack := make([]byte, 0)
+	for i := 0; i < len(s); i++ {
+		if len(stack) != 0 {
+			val, ok := m[strs[i]]
+			if ok {
+				if stack[len(stack)-1] == val {
+					stack = stack[:len(stack)-1]
+				} else {
+					return false
+				}
+
+			} else {
+				stack = append(stack, strs[i])
+			}
+
+		} else {
+			stack = append(stack, strs[i])
+		}
+	}
+	return len(stack) == 0
+}
+
+// 这是第一版做法，存在错误与优化空间，正确答案在后面
+func isValid1(s string) bool {
 	m := make(map[string]string, 3)
 	m["("] = ")"
 	m["{"] = "}"
@@ -89,7 +115,8 @@ func isValid(s string) bool {
 时间复杂度 O(N))：正确的括号组合需要遍历 111 遍 s；
 空间复杂度 O(N)：哈希表和栈使用线性的空间大小。
 */
-func isValid(s string) bool {
+
+func isValid2(s string) bool {
 	m := make(map[byte]byte, 3)
 	m['('] = ')'
 	m['{'] = '}'
@@ -123,7 +150,7 @@ func isValid(s string) bool {
 	return true
 }
 
-func isValid(s string) bool {
+func isValid3(s string) bool {
 	n := len(s)
 	if n%2 == 1 {
 		return false
@@ -168,6 +195,6 @@ func isValid(s string) bool {
 }
 
 func main() {
-	s := "()"
+	s := "([])"
 	print(isValid(s))
 }

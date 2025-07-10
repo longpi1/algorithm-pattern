@@ -24,14 +24,23 @@ import "math"
 // Related Topics 数组 动态规划
 // 👍 3145 👎 0
 
+// leetcode submit region begin(Prohibit modification and deletion)
+func maxProfit(prices []int) int {
+	minPrice := prices[0]
+	result := 0
+	for i := 1; i < len(prices); i++ {
+		minPrice = min(minPrice, prices[i])
+		result = max(result, prices[i]-minPrice)
+	}
+	return result
+}
 
-//leetcode submit region begin(Prohibit modification and deletion)
-//暴力法
+// 暴力法
 func maxProfit(prices []int) int {
 	n := len(prices)
 	max := 0
-	for i := 0; i <n ; i++ {
-		for j := i+1; j<n; j++ {
+	for i := 0; i < n; i++ {
+		for j := i + 1; j < n; j++ {
 			result := prices[j] - prices[i]
 			if result > max {
 				max = result
@@ -40,17 +49,18 @@ func maxProfit(prices []int) int {
 	}
 	return max
 }
-//leetcode submit region end(Prohibit modification and deletion)
-//一次遍历
+
+// leetcode submit region end(Prohibit modification and deletion)
+// 一次遍历
 func maxProfit(prices []int) int {
 	n := len(prices)
 	min := math.MaxInt64
 	max := 0
-	for i := 0; i <n ; i++ {
+	for i := 0; i < n; i++ {
 		if prices[i] < min {
 			min = prices[i]
-		}else if prices[i] - min > max{
-			max =  prices[i] - min
+		} else if prices[i]-min > max {
+			max = prices[i] - min
 		}
 	}
 	return max

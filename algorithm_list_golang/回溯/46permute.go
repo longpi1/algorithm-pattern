@@ -5,8 +5,6 @@ import "fmt"
 /*
 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
 
-
-
 示例 1：
 
 输入：nums = [1,2,3]
@@ -20,13 +18,41 @@ import "fmt"
 输入：nums = [1]
 输出：[[1]]
 
-
 提示：
 
 1 <= nums.length <= 6
 -10 <= nums[i] <= 10
 nums 中的所有整数 互不相同
+*/
+func permute(nums []int) [][]int {
+	result := make([][]int, 0)
+	n := len(nums)
+	path := make([]int, 0)
+	visited := make(map[int]bool)
+	dfs := func() {}
+	dfs = func() {
+		if len(path) == n {
+			tmp := make([]int, n)
+			copy(tmp, path)
+			result = append(result, tmp)
+			return
+		}
+		for i := 0; i < n; i++ {
+			if !visited[nums[i]] {
+				visited[nums[i]] = true
+				path = append(path, nums[i])
+				dfs()
+				path = path[:len(path)-1]
+				visited[nums[i]] = false
+			}
 
+		}
+	}
+	dfs()
+	return result
+}
+
+/*
 解决思路：
 回溯算法：
 # 回溯算法
@@ -110,7 +136,7 @@ func permute(nums []int) (ans [][]int) {
 			return
 		}
 		for i := 0; i < n; i++ {
-			if !used[i]{
+			if !used[i] {
 				used[i] = true
 				path = append(path, nums[i])
 				dfs()
@@ -125,12 +151,7 @@ func permute(nums []int) (ans [][]int) {
 	return
 }
 
-
-
-func main()  {
-	nums := []int{1,2,3}
-	fmt.Printf("result:%v",permute(nums))
+func main() {
+	nums := []int{1, 2, 3}
+	fmt.Printf("result:%v", permute(nums))
 }
-
-
-

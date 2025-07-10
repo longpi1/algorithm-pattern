@@ -5,8 +5,6 @@ package main
 
 请必须使用时间复杂度为 O(log n) 的算法。
 
-
-
 示例 1:
 
 输入: nums = [1,3,5,6], target = 5
@@ -20,13 +18,30 @@ package main
 输入: nums = [1,3,5,6], target = 7
 输出: 4
 
-
 提示:
 
 1 <= nums.length <= 104
 -104 <= nums[i] <= 104
 nums 为 无重复元素 的 升序 排列数组
 -104 <= target <= 104
+*/
+func searchInsert(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)/2
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return left
+}
+
+/*
 
 方法一：二分查找
 思路与算法
@@ -47,37 +62,36 @@ nums[pos−1]<target≤nums[pos]
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 
-
-//### 解题思路：二分查找low_bound 【时间复杂度O(lgn),n是数组长度】
+// ### 解题思路：二分查找low_bound 【时间复杂度O(lgn),n是数组长度】
 //
-//- 核心要素
-//    - 注意区间开闭，三种都可以
-//    - 循环结束条件：当前区间内没有元素
-//    - 下一次二分查找区间：不能再查找(区间不包含)mid，防止死循环
-//    - 返回值：大于等于target的第一个下标（注意循环不变量）
+// - 核心要素
+//   - 注意区间开闭，三种都可以
+//   - 循环结束条件：当前区间内没有元素
+//   - 下一次二分查找区间：不能再查找(区间不包含)mid，防止死循环
+//   - 返回值：大于等于target的第一个下标（注意循环不变量）
 //
-//- 有序数组中二分查找的四种类型（下面的转换仅适用于数组中都是整数）
-//    1. 第一个大于等于x的下标： low_bound(x)
-//    2. 第一个大于x的下标：可以转换为`第一个大于等于 x+1 的下标` ，low_bound(x+1)
-//    3. 最后一个一个小于x的下标：可以转换为`第一个大于等于 x 的下标` 的`左边位置`, low_bound(x) - 1;
-//    4. 最后一个小于等于x的下标：可以转换为`第一个大于等于 x+1 的下标` 的 `左边位置`, low_bound(x+1) - 1;
+// - 有序数组中二分查找的四种类型（下面的转换仅适用于数组中都是整数）
+//  1. 第一个大于等于x的下标： low_bound(x)
+//  2. 第一个大于x的下标：可以转换为`第一个大于等于 x+1 的下标` ，low_bound(x+1)
+//  3. 最后一个一个小于x的下标：可以转换为`第一个大于等于 x 的下标` 的`左边位置`, low_bound(x) - 1;
+//  4. 最后一个小于等于x的下标：可以转换为`第一个大于等于 x+1 的下标` 的 `左边位置`, low_bound(x+1) - 1;
 func searchInsert(nums []int, target int) int {
-	left ,right := 0, len(nums)-1
+	left, right := 0, len(nums)-1
 	for left <= right {
 		mid := left + (right-left)/2
 		if nums[mid] == target {
 			return mid
 		}
-		if nums[mid] < target{
-			left = mid +1
-		}else{
-			right = mid -1
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
 		}
 	}
 	return left
 }
-func main()  {
-	nums := []int{1,3,5,6}
+func main() {
+	nums := []int{1, 3, 5, 6}
 	target := 2
-	println(searchInsert(nums,target))
+	println(searchInsert(nums, target))
 }
