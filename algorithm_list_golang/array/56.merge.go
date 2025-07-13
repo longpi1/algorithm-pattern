@@ -19,19 +19,18 @@ func merge(intervals [][]int) [][]int {
 
 }
 
-
 func merge(intervals [][]int) [][]int {
 	// 按照区间的起始位置进行排序
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i][0] < intervals[j][0]
 	})
-	res := make([][]int, 0, len(intervals)) // 用于存储合并后的区间结果
+	res := make([][]int, 0, len(intervals))         // 用于存储合并后的区间结果
 	left, right := intervals[0][0], intervals[0][1] // 初始化当前合并区间的左右边界
 
 	// 遍历排序后的区间列表
 	for i := 1; i < len(intervals); i++ {
 		if right < intervals[i][0] { // 如果当前合并区间的右边界小于下一个区间的左边界
-			res = append(res, []int{left, right}) // 将当前合并区间添加到结果中
+			res = append(res, []int{left, right})          // 将当前合并区间添加到结果中
 			left, right = intervals[i][0], intervals[i][1] // 更新合并区间的左右边界为下一个区间
 		} else {
 			right = max(right, intervals[i][1]) // 如果有重叠，更新合并区间的右边界
@@ -47,4 +46,3 @@ func max(a, b int) int {
 	}
 	return b
 }
-

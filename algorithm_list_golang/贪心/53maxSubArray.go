@@ -19,32 +19,24 @@ import "math"
 输入：nums = [5,4,-1,7,8]
 输出：23
 */
-// 下述思路错误，效率低下n平方，并且可能错过正解
+
 func maxSubArray(nums []int) int {
 	n := len(nums)
 	if n == 0 {
 		return 0
 	}
-	left := 0
-	result := math.MinInt64
-	for left < n {
-		tmp := 0
-		isChange := false
-		for i := left; i < n; i++ {
-			if tmp < 0 && nums[i] > tmp {
-				left = i
-				isChange = true
-				tmp += nums[i]
-				break
-			}
-			tmp += nums[i]
+	dp := make([]int, n)
+	dp[0] = nums[0]
+	// 用一个变量来记录全局的最大值
+	maxSum := dp[0]
+	for i := 1; i < n; i++ {
+		dp[i] = max(dp[i-1]+nums[i], nums[i])
+		if dp[i] > maxSum {
+			maxSum = dp[i]
 		}
-		if !isChange {
-			left++
-		}
-		result = max(result, tmp)
 	}
-	return result
+
+	return maxSum
 }
 func maxSubArray(nums []int) int {
 	n := len(nums)

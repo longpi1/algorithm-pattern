@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"maps"
+	"slices"
 	"sort"
 )
 
 /*
+49. 字母异位词分组
 给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。
 字母异位词 是由重新排列源单词的所有字母得到的一个新单词。
 
@@ -22,7 +25,21 @@ import (
 */
 
 func groupAnagrams(strs []string) [][]string {
-
+	result := make([][]string, 0)
+	m := make(map[string][]string)
+	for _, str := range strs {
+		strArr := []byte(str)
+		sort.Slice(strArr, func(i, j int) bool {
+			return strArr[i] > strArr[j]
+		})
+		stringArrs := m[string(strArr)]
+		stringArrs = append(stringArrs, str)
+		m[string(strArr)] = stringArrs
+	}
+	for _, strings := range m {
+		result = append(result, strings)
+	}
+	return result
 }
 
 /*func groupAnagrams(strs []string) [][]string {
@@ -79,6 +96,19 @@ func groupAnagrams(strs []string) [][]string {
 	return result
 }
 
+func groupAnagrams(strs []string) [][]string {
+	m := map[string][]string{}
+	for _, s := range strs {
+		// 把 s 排序，作为哈希表的 key
+		tmp := []byte(s)
+		slices.Sort(tmp)
+		sortedS := string(tmp)
+		// 排序后相同的字符串分到同一组
+		m[sortedS] = append(m[sortedS], s)
+	}
+	// 哈希表的 value 保存分组后的结果
+	return slices.Collect(maps.Values(m))
+}
 func main() {
 	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
 	fmt.Printf("%v", groupAnagrams(strs))
