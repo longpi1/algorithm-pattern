@@ -19,32 +19,30 @@ package main
 */
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-
-	newHead := &ListNode{Val: 0}
+	dummy := &ListNode{}
+	newNode := dummy
 	for list1 != nil && list2 != nil {
-		if list1 == nil {
-			newHead.Next = list2
-			return newHead
-		}
-		if list1.Val > list2.Val {
-			newHead.Next = list2
-			list2 = list2.Next
-		}else {
-			newHead.Next = list1
+		if list1.Val < list2.Val {
+			newNode.Next = list1
 			list1 = list1.Next
+		} else {
+			newNode.Next = list2
+			list2 = list2.Next
 		}
+		newNode = newNode.Next
 	}
-
-	return newHead.Next
-}
-
-func merge(list1 *ListNode, list2 *ListNode) *ListNode {
-
+	if list1 != nil {
+		newNode.Next = list1
+	}
+	if list2 != nil {
+		newNode.Next = list2
+	}
+	return dummy.Next
 }
 
 func mergeTwoLists(list1, list2 *ListNode) *ListNode {
 	dummy := &ListNode{} // 用哨兵节点简化代码逻辑
-	cur := dummy // cur 指向新链表的末尾
+	cur := dummy         // cur 指向新链表的末尾
 	for list1 != nil && list2 != nil {
 		if list1.Val < list2.Val {
 			cur.Next = list1 // 把 list1 加到新链表中

@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 /*
 56. 合并区间
@@ -16,10 +19,34 @@ import "sort"
 */
 
 func merge(intervals [][]int) [][]int {
+	result := make([][]int, 0)
 
+	sort.Slice(intervals, func(i, j int) bool {
+		return intervals[i][0] < intervals[j][0]
+	})
+	left, right := intervals[0][0], intervals[0][1]
+	for i := 1; i < len(intervals); i++ {
+		if intervals[i][0] > right {
+			//fmt.Println("intervals >: %v", i, intervals[i][0])
+			result = append(result, []int{left, right})
+			left, right = intervals[i][0], intervals[i][1]
+		} else {
+			//fmt.Println("intervals >: %v", i, intervals[i][0])
+			right = max(intervals[i][1], right)
+		}
+
+	}
+	result = append(result, []int{left, right})
+	return result
 }
 
-func merge(intervals [][]int) [][]int {
+func main() {
+	intervals := [][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}}
+	result := merge(intervals)
+	fmt.Printf("result: %v", result)
+}
+
+func merge1(intervals [][]int) [][]int {
 	// 按照区间的起始位置进行排序
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i][0] < intervals[j][0]

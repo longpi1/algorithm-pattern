@@ -1,5 +1,7 @@
 package main
 
+import "slices"
+
 /*
 189. 轮转数组
 
@@ -19,23 +21,24 @@ package main
 向右轮转 1 步: [99,-1,-100,3]
 向右轮转 2 步: [3,99,-1,-100]
 */
-
-/*func rotate(nums []int, k int)  {
+func rotate(nums []int, k int) {
+	// 创建一个新的切片用于存储旋转后的元素
+	newNums := make([]int, len(nums))
+	k %= len(nums) // 轮转 k 次等于轮转 k % n 次
 	n := len(nums)
 
-	n1 := nums[n-k:n]
+	n1 := nums[n-k : n]
 	n2 := nums[:n-k]
-	nums = append(n1, n2...)
-	print(nums)
+	newNums = append(n1, n2...)
+	copy(nums, newNums)
 }
-*/
 
 /*
 上述思路错误
 */
 
-//方法一：使用额外的数组
-//我们可以使用额外的数组来将每个元素放至正确的位置。用 nnn 表示数组的长度，我们遍历原数组，将原数组下标为 iii 的元素放至新数组下标为 (i+k) mod n(i+k)\bmod n(i+k)modn 的位置，最后将新数组拷贝至原数组即可。
+// 方法一：使用额外的数组
+// 我们可以使用额外的数组来将每个元素放至正确的位置。用 nnn 表示数组的长度，我们遍历原数组，将原数组下标为 iii 的元素放至新数组下标为 (i+k) mod n(i+k)\bmod n(i+k)modn 的位置，最后将新数组拷贝至原数组即可。
 func rotate(nums []int, k int) {
 	// 创建一个新的切片用于存储旋转后的元素
 	newNums := make([]int, len(nums))
@@ -52,7 +55,6 @@ func rotate(nums []int, k int) {
 	// 将新的切片内容复制回原始切片 nums
 	copy(nums, newNums)
 }
-
 
 /*
 方法三：数组翻转
@@ -74,4 +76,10 @@ func rotate(nums []int, k int) {
 	reverse(nums)
 	reverse(nums[:k])
 	reverse(nums[k:])
+}
+func rotate(nums []int, k int) {
+	k %= len(nums) // 轮转 k 次等于轮转 k % n 次
+	slices.Reverse(nums)
+	slices.Reverse(nums[:k])
+	slices.Reverse(nums[k:])
 }

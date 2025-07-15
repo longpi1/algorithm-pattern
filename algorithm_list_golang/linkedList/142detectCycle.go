@@ -26,7 +26,54 @@ package main
 -105 <= Node.val <= 105
 pos 的值为 -1 或者链表中的一个有效索引
 */
+// 第一次写思路错误
+func detectCycle(head *ListNode) *ListNode {
+	//m := make(map[*ListNode]int)
+	slow := head
+	fast := head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		// slow 和 fast 相遇的那个节点，不一定是环的入口节点。
+		if slow == fast {
+			return slow
+		}
+	}
+	return nil
+}
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
 
+	slow, fast := head, head
+
+	// 步骤 1: 找到快慢指针的相遇点
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+
+		// 如果相遇，证明有环
+		if slow == fast {
+			// 步骤 2: 找到环的入口
+			// 将一个指针放回头节点
+			ptr1 := head
+			// 另一个指针留在相遇点
+			ptr2 := slow // 或者 fast，它们现在指向同一个节点
+
+			// 同时以相同速度前进，直到它们再次相遇
+			for ptr1 != ptr2 {
+				ptr1 = ptr1.Next
+				ptr2 = ptr2.Next
+			}
+			// 再次相遇的点就是环的入口
+			return ptr1
+		}
+	}
+
+	// 如果循环正常结束，说明 fast 走到了尽头，没有环
+	return nil
+}
 
 /*
 解题思路
@@ -45,7 +92,7 @@ a+(n+1)b+nc=2(a+b)⟹a=c+(n−1)(b+c)
 */
 // 下述代码基于快慢指针，存在一个错误点，已在代码中更正
 func detectCycle(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil{
+	if head == nil || head.Next == nil {
 		return nil
 	}
 	// 定义快慢指针，起点一致，快指针是慢指针的一倍速；
@@ -53,7 +100,7 @@ func detectCycle(head *ListNode) *ListNode {
 	fast := head
 	flag := false
 
-	for fast != nil &&  fast.Next != nil {
+	for fast != nil && fast.Next != nil {
 		//在第一个循环中，当快慢指针相遇时（即 fast == slow），您使用 break 关键字终止了循环。
 		//最开始的时候肯定相等以为都指向head
 		//if fast == slow {
@@ -79,8 +126,7 @@ func detectCycle(head *ListNode) *ListNode {
 	return nil
 }
 
-
-//2.哈希表实现方式:一个非常直观的思路是：我们遍历链表中的每个节点，并将它记录下来；一旦遇到了此前遍历过的节点，就可以判定链表中存在环。借助哈希表可以很方便地实现。
+// 2.哈希表实现方式:一个非常直观的思路是：我们遍历链表中的每个节点，并将它记录下来；一旦遇到了此前遍历过的节点，就可以判定链表中存在环。借助哈希表可以很方便地实现。
 func detectCycle(head *ListNode) *ListNode {
 	seen := map[*ListNode]struct{}{}
 	for head != nil {

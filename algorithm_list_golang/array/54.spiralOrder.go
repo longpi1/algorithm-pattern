@@ -26,6 +26,21 @@ n == matrix[i].length
 1 <= m, n <= 10
 -100 <= matrix[i][j] <= 100
 */
+
+func spiralOrder(matrix [][]int) []int {
+	if len(matrix) == 0 {
+		return []int{}
+	}
+	result := make([]int, 0)
+	m := len(matrix)
+	n := len(matrix[0])
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+
+		}
+	}
+}
+
 /*
 
 func spiralOrder(matrix [][]int) []int {
@@ -176,7 +191,6 @@ top == bottom && left == right —— 剩一项（也算 一行/列）
 	return res
 }*/
 
-
 /*
 以下是自己再做一遍的结果：
 错误点如下：
@@ -203,7 +217,7 @@ func spiralOrder(matrix [][]int) []int {
 	var result []int
 	// bottom是等于len(matrix)-1，right是等于len(matrix[0])-1,这个点看图就可以得出来
 	//top,bottom,left,right := 0, n-1, 0, m-1
-	top,bottom,left,right := 0, m-1, 0, n-1
+	top, bottom, left, right := 0, m-1, 0, n-1
 	for top < bottom && left < right {
 		for i := left; i < right; i++ {
 			//添加元素错误matrix[i][top]和 matrix[right][i]等都搞反了。。。。。。。。
@@ -223,21 +237,21 @@ func spiralOrder(matrix [][]int) []int {
 			result = append(result, matrix[i][left])
 		}
 
-		left ++
-		right --
-		top ++
-		bottom --
+		left++
+		right--
+		top++
+		bottom--
 	}
 
-	if top == bottom{
+	if top == bottom {
 		//这里应该是<=才行
 		for i := left; i <= right; i++ {
 			//result = append(result, matrix[i][top])
 			result = append(result, matrix[top][i])
 		}
-	}else if left == right {
-	// 这里要改为else if 两者情况不可能同时方式
-	//	if left == right {
+	} else if left == right {
+		// 这里要改为else if 两者情况不可能同时方式
+		//	if left == right {
 		for i := top; i <= bottom; i++ {
 			//result = append(result, matrix[right][i])
 			result = append(result, matrix[i][right])
@@ -247,10 +261,8 @@ func spiralOrder(matrix [][]int) []int {
 	return result
 }
 
-
-
-func main()  {
+func main() {
 	//nums := [][]int{{1,2,3},{4,5,6},{7,8,9}}
-	nums1 := [][]int{{1,2,3,4},{5,6,7,8},{9,10,11,12}}
-	fmt.Printf("result: %v",spiralOrder(nums1))
+	nums1 := [][]int{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}}
+	fmt.Printf("result: %v", spiralOrder(nums1))
 }
