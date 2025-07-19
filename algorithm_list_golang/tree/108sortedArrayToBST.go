@@ -1,6 +1,8 @@
 package main
 
 /*
+将有序数组转换为二叉搜索树
+
 给你一个整数数组 nums ，其中元素已经按 升序 排列，请你将其转换为一棵 高度平衡 二叉搜索树。
 高度平衡 二叉树是一棵满足「每个节点的左右两个子树的高度差的绝对值不超过 1 」的二叉树。
 
@@ -15,6 +17,39 @@ package main
 解释：[1,null,3] 和 [3,1] 都是高度平衡二叉搜索树。
 
 */
+
+func sortedArrayToBST(nums []int) *TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+
+	mid := len(nums) / 2
+	root := &TreeNode{Val: mid} // !!! BUG: 应填 nums[mid]，而不是下标 mid
+
+	// dfs 递归变量先占位再重新赋值——Go 闭包写法 OK
+	dfs := func(nums []int, node *TreeNode) {}
+	dfs = func(nums []int, node *TreeNode) {
+		if len(nums) == 0 {
+			return
+		}
+
+		mid = len(nums) / 2 // !!! BUG 1: 复用最外层同名变量，
+		//           多层递归相互覆盖，结果错乱
+		// !!! BUG 2: 下面所有地方都用“全局 root”，
+		//           而没有使用当前节点 node，子树会被写进根节点
+		//           并且 Left/Right 还没分配直接访问会 panic
+		root.Left.Val = nums[mid-1]  // !!! BUG 3: root.Left 为空指针，直接 .Val 会崩溃
+		root.Right.Val = nums[mid+1] // !!! BUG 4: root.Right 为空指针，同上
+
+		// !!! BUG 5: 切片下标越界风险
+		//           当 mid==0 时 nums[:mid-1] 负数下标；mid==len(nums)-1 时 mid+1 溢出
+		dfs(nums[:mid-1], root.Left)
+		dfs(nums[mid+1:], root.Right)
+	}
+
+	dfs(nums, root)
+	return root
+}
 
 /*func sortedArrayToBST(nums []int) *TreeNode {
 	left := 0
@@ -74,11 +109,9 @@ func sortedArrayToBST(nums []int) *TreeNode {
 	return dfs(left, right)
 }
 
-
-
-func main(){
+func main() {
 	nums := []int{
-		-10,-3,0,5,9,
+		-10, -3, 0, 5, 9,
 	}
 	sortedArrayToBST(nums)
 }
