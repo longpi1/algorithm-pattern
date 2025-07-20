@@ -22,6 +22,11 @@ package main
 输出：0
 解释：因为 0 分钟时已经没有新鲜橘子了，所以答案就是 0 。
 */
+
+func orangesRotting(grid [][]int) int {
+
+}
+
 /*
 解题思路：
 BPF
@@ -29,8 +34,8 @@ BPF
 
 var (
 	/*
-	dx = []int{1, 0, 0, -1} 表示在横坐标上，分别向右、不动、不动、向左移动；
-	dy = []int{0, 1, -1, 0} 表示在纵坐标上，分别不动、向上、向下、不动移动。
+		dx = []int{1, 0, 0, -1} 表示在横坐标上，分别向右、不动、不动、向左移动；
+		dy = []int{0, 1, -1, 0} 表示在纵坐标上，分别不动、向上、向下、不动移动。
 	*/
 	dx = []int{1, 0, 0, -1}
 	dy = []int{0, 1, -1, 0}
@@ -39,7 +44,7 @@ var (
 // orangesRotting 使用广度优先搜索（BFS）算法解决腐烂橘子问题
 func orangesRotting(grid [][]int) int {
 	m, n := len(grid), len(grid[0])
-	queue := [][]int{} // 用于存储腐烂橘子的坐标
+	queue := [][]int{}       // 用于存储腐烂橘子的坐标
 	vis := make([][]bool, m) // 用于标记橘子是否被访问
 	for i := 0; i < m; i++ {
 		vis[i] = make([]bool, n)
@@ -108,3 +113,46 @@ func orangesRotting(grid [][]int) int {
 	return level - 1
 }
 
+type orange struct {
+	x int
+	y int
+}
+
+var directions = []orange{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+
+func orangesRotting(grid [][]int) int {
+	// 统计新鲜橘子数量 ，栈储存坏橘子
+	fresh := 0
+	q := []orange{}
+	m, n := len(grid), len(grid[0])
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				fresh++
+			} else if grid[i][j] == 2 {
+				q = append(q, orange{i, j})
+			}
+		}
+	}
+	// 循环，直到都不新鲜或者不能腐烂
+	res := 0
+	for fresh > 0 && len(q) > 0 {
+		res++
+		tmp := q
+		q = []orange{}
+		for _, t := range tmp { // 已经腐烂橘子
+			for _, d := range directions {
+				i, j := t.x+d.x, t.y+d.y
+				if i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == 1 {
+					fresh--
+					grid[i][j] = 2
+					q = append(q, orange{i, j})
+				}
+			}
+		}
+	}
+	if fresh > 0 {
+		return -1
+	}
+	return res
+}

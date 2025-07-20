@@ -19,6 +19,45 @@ import "fmt"
 输入：digits = "2"
 输出：["a","b","c"]
 */
+func letterCombinations(digits string) []string {
+	if len(digits) == 0 {
+		return []string{}
+	}
+	digitsToChars := map[byte]string{
+		'2': "abc",
+		'3': "def",
+		'4': "ghi",
+		'5': "jkl",
+		'6': "mno",
+		'7': "pqrs",
+		'8': "tuv",
+		'9': "wxyz",
+	}
+	n := len(digits)
+	result := make([]string, 0)
+	path := make([]byte, 0)
+	dfs := func(index int) {}
+	dfs = func(index int) {
+		if len(path) == n {
+			tmp := make([]byte, len(path))
+			copy(tmp, path)
+			result = append(result, string(tmp))
+		}
+		if index > len(digits)-1 {
+			return
+		}
+		s := digitsToChars[digits[index]]
+
+		for j := 0; j < len(s); j++ {
+			path = append(path, s[j])
+			dfs(index + 1)
+			path = path[:len(path)-1]
+		}
+
+	}
+	dfs(0)
+	return result
+}
 
 // 错误代码，留下记录用于后续再写的时候发现错误以及加深印象
 func letterCombinations(digits string) []string {
