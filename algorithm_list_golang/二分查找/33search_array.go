@@ -50,31 +50,30 @@ nums 中的每个值都 独一无二
     4. 最后一个小于等于x的下标：可以转换为`第一个大于等于 x+1 的下标` 的 `左边位置`, low_bound(x+1) - 1;
 */
 
-
 // 初始思路:
 func search(nums []int, target int) int {
-	n :=len(nums)
+	n := len(nums)
 	if target > nums[n-1] {
-		for i := 0; i < n ; i++ {
-			if target == nums[i]{
+		for i := 0; i < n; i++ {
+			if target == nums[i] {
 				return i
 			}
-			if i+1 < n && nums[i] > nums[i+1]{
+			if i+1 < n && nums[i] > nums[i+1] {
 				return -1
 			}
 		}
-	}else if  target < nums[n-1]{
-		for i := n-1; i >= 0; i-- {
+	} else if target < nums[n-1] {
+		for i := n - 1; i >= 0; i-- {
 
-			if target == nums[i]{
+			if target == nums[i] {
 				return i
 			}
-			if n >2 && i >0 && nums[i] < nums[i-1]{
+			if n > 2 && i > 0 && nums[i] < nums[i-1] {
 				return -1
 			}
 		}
-	}else {
-		return n-1
+	} else {
+		return n - 1
 	}
 
 	return -1
@@ -89,7 +88,7 @@ func search(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 
 	for left <= right {
-		mid := left + (right - left) / 2
+		mid := left + (right-left)/2
 
 		if nums[mid] == target {
 			return mid
@@ -116,10 +115,9 @@ func search(nums []int, target int) int {
 
 // 其他思路：两次二分
 // 两次二分
-//
 func findMin(nums []int) int {
 	left, right := -1, len(nums)-1 // 开区间 (-1, n-1)
-	for left+1 < right { // 开区间不为空
+	for left+1 < right {           // 开区间不为空
 		mid := left + (right-left)/2
 		if nums[mid] < nums[len(nums)-1] { // 蓝色
 			right = mid
@@ -159,11 +157,48 @@ func searchV2(nums []int, target int) int {
 	return lowerBound(nums, i-1, len(nums), target) // 右段
 }
 
+// search 函数用于在旋转排序数组中搜索目标值的索引
+// nums 是旋转排序数组，target 是要搜索的目标值
+// 返回目标值在数组中的索引，如果未找到则返回 -1
+func search(nums []int, target int) int {
+	// 初始化左指针，指向数组的起始位置
+	left, right := 0, len(nums)-1
+	// 当左指针小于等于右指针时，继续循环搜索
+	for left <= right {
+		// 计算中间位置，使用 left + (right - left) / 2 避免整数溢出
+		mid := left + (right-left)/2
+		// 如果中间位置的元素等于目标值，直接返回中间位置的索引
+		if nums[mid] == target {
+			return mid
+		}
+		// 判断左半部分是否有序
+		if nums[mid] >= nums[left] {
+			// 如果目标值在左半部分的有序区间内
+			if nums[mid] > target && target >= nums[left] {
+				// 缩小右边界，继续在左半部分搜索
+				right = mid - 1
+			} else {
+				// 目标值不在左半部分的有序区间内，缩小左边界，在右半部分搜索
+				left = mid + 1
+			}
+		} else {
+			// 左半部分无序，说明右半部分有序
+			// 如果目标值在右半部分的有序区间内
+			if nums[mid] < target && target <= nums[right] {
+				// 缩小左边界，继续在右半部分搜索
+				left = mid + 1
+			} else {
+				// 目标值不在右半部分的有序区间内，缩小右边界，在左半部分搜索
+				right = mid - 1
+			}
+		}
+	}
+	// 循环结束后仍未找到目标值，返回 -1
+	return -1
+}
 
-
-
-func main()  {
-	nums := []int{1,3}
+func main() {
+	nums := []int{1, 3}
 	target := 1
-	print(search(nums,target))
+	print(search(nums, target))
 }

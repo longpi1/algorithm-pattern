@@ -15,7 +15,6 @@ void pop() 删除堆栈顶部的元素。
 int top() 获取堆栈顶部的元素。
 int getMin() 获取堆栈中的最小元素。
 
-
 示例 1:
 输入：
 ["MinStack","push","push","push","getMin","pop","top","getMin"]
@@ -34,7 +33,37 @@ minStack.pop();
 minStack.top();      --> 返回 0.
 minStack.getMin();   --> 返回 -2.
 */
+type MinStack1 struct {
+}
 
+func Constructor() MinStack {
+
+}
+
+func (this *MinStack) Push(val int) {
+
+}
+
+func (this *MinStack) Pop() {
+
+}
+
+func (this *MinStack) Top() int {
+
+}
+
+func (this *MinStack) GetMin() int {
+
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Push(val);
+ * obj.Pop();
+ * param_3 := obj.Top();
+ * param_4 := obj.GetMin();
+ */
 /*type MinStack struct {
 	stack []int
 	minStack []int
@@ -73,7 +102,6 @@ func min(b int, a int) int{
 	}
 }*/
 
-
 /*
 上述思路错误，
 题目只要求常数时间内获取最小元素即可
@@ -95,14 +123,14 @@ func Constructor() MinStack {
 
 // Push 将新元素加入栈中，并同时更新 minStack 以存储目前为止的最小元素。
 func (this *MinStack) Push(x int) {
-	this.stack = append(this.stack, x) // 将元素加入主栈
-	top := this.minStack[len(this.minStack)-1] // 获取 minStack 的栈顶元素
+	this.stack = append(this.stack, x)                 // 将元素加入主栈
+	top := this.minStack[len(this.minStack)-1]         // 获取 minStack 的栈顶元素
 	this.minStack = append(this.minStack, min(x, top)) // 将 x 和栈顶元素的最小值加入 minStack
 }
 
 // Pop 从主栈和 minStack 中弹出栈顶元素。
 func (this *MinStack) Pop() {
-	this.stack = this.stack[:len(this.stack)-1] // 从主栈中弹出栈顶元素
+	this.stack = this.stack[:len(this.stack)-1]          // 从主栈中弹出栈顶元素
 	this.minStack = this.minStack[:len(this.minStack)-1] // 从 minStack 中弹出栈顶元素
 }
 
@@ -123,7 +151,6 @@ func min(x, y int) int {
 	}
 	return y
 }
-
 
 /**
  * Your MinStack object will be instantiated and called as such:

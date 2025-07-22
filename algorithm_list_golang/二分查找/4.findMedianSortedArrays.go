@@ -46,12 +46,3 @@ func findMedianSortedArrays(a, b []int) float64 {
 		j--
 	}
 }
-
-//作者：灵茶山艾府
-//链接：https://leetcode.cn/problems/median-of-two-sorted-arrays/solutions/2950686/tu-jie-xun-xu-jian-jin-cong-shuang-zhi-z-p2gd/
-//来源：力扣（LeetCode）
-//著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-//func main() {
-//	fmt.Println(5 / 2)
-//	fmt.Println(5 % 2)
-//}
