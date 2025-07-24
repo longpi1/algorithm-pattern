@@ -4,6 +4,7 @@ import (
 	"container/heap"
 	"sort"
 )
+
 /*
 给定一个整数数组 nums 和一个整数 k ，请返回其中出现频率前 k 高的元素。可以按 任意顺序 返回答案。
 
@@ -109,25 +110,25 @@ func topKFrequent(nums []int, k int) []int {
 优先级队列，大顶堆/小顶堆 利用"container/heap"包实现
 */
 
-//方法一：小顶堆 重点！！ [][2]int 定义了一个自定义类型 IHeap，它是一个切片（slice），其中每个元素都是一个包含两个整数的数组 [2]int。这个自定义类型被用作堆（优先队列）的数据结构，用于存储元素和它们的频率。
+// 方法一：小顶堆 重点！！ [][2]int 定义了一个自定义类型 IHeap，它是一个切片（slice），其中每个元素都是一个包含两个整数的数组 [2]int。这个自定义类型被用作堆（优先队列）的数据结构，用于存储元素和它们的频率。
 func topKFrequent(nums []int, k int) []int {
-	map_num:=map[int]int{}
+	map_num := map[int]int{}
 	//记录每个元素出现的次数
-	for _,item:=range nums{
+	for _, item := range nums {
 		map_num[item]++
 	}
-	h:=&IHeap{}
+	h := &IHeap{}
 	heap.Init(h)
 	//所有元素入堆，堆的长度为k
-	for key,value:=range map_num{
-		heap.Push(h,[2]int{key,value})
-		if h.Len()>k{
+	for key, value := range map_num {
+		heap.Push(h, [2]int{key, value})
+		if h.Len() > k {
 			heap.Pop(h)
 		}
 	}
-	res:=make([]int,k)
+	res := make([]int, k)
 	//按顺序返回堆中的元素
-	for i:=0;i<k;i++{
+	for i := 0; i < k; i++ {
 		res[k-i-1] = heap.Pop(h).([2]int)[0]
 	}
 	return res
@@ -136,39 +137,37 @@ func topKFrequent(nums []int, k int) []int {
 // ！！！构建小顶堆  [][2]int 定义了一个自定义类型 IHeap，它是一个切片（slice），其中每个元素都是一个包含两个整数的数组 [2]int。这个自定义类型被用作堆（优先队列）的数据结构，用于存储元素和它们的频率。
 type IHeap [][2]int
 
-func (h IHeap) Len()int {
+func (h IHeap) Len() int {
 	return len(h)
 }
 
-func (h IHeap) Less (i,j int) bool {
-	return h[i][1]<h[j][1]
+func (h IHeap) Less(i, j int) bool {
+	return h[i][1] < h[j][1]
 }
 
-func (h IHeap) Swap(i,j int) {
-	h[i],h[j]=h[j],h[i]
+func (h IHeap) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
 }
 
-func (h *IHeap) Push(x interface{}){
-	*h=append(*h,x.([2]int))
+func (h *IHeap) Push(x interface{}) {
+	*h = append(*h, x.([2]int))
 }
 
-
-func (h *IHeap) Pop() interface{}{
+func (h *IHeap) Pop() interface{} {
 	n := len(*h)
-	x := (*h)[n-1] // 获取堆顶元素
+	x := (*h)[n-1]  // 获取堆顶元素
 	*h = (*h)[:n-1] // 移除堆顶元素
 	return x
 }
 
-
-//方法二:利用O(logn)排序
+// 方法二:利用O(logn)排序
 func topKFrequent(nums []int, k int) []int {
 	n := len(nums)
 	m := make(map[int]int)
 	for i := 0; i < n; i++ {
 		m[nums[i]] += 1
 	}
-	result := make([]int,0)
+	result := make([]int, 0)
 
 	for key, _ := range m {
 		result = append(result, key)
@@ -182,13 +181,6 @@ func topKFrequent(nums []int, k int) []int {
 	return result[:k]
 }
 
-
-
-
-
-
-
-
 /*
 以下是代码的详细解析：
 1.map_num 是一个映射，用于存储输入 nums 中每个唯一元素作为键以及它们对应的频率作为值。
@@ -198,3 +190,26 @@ func topKFrequent(nums []int, k int) []int {
 5.代码然后以逆序遍历堆，并将前 "k" 个最频繁的元素填充到 res 切片中。它从堆中弹出元素，并以逆序的方式将它们存储在 res 切片中。
 6.最后，函数返回 res 切片，其中包含按频率降序排列的前 "k" 个最频繁元素。
 */
+
+func topKFrequent(nums []int, k int) []int {
+	// 第一步：统计每个元素的出现次数
+	cnt := map[int]int{}
+	maxCnt := 0
+	for _, x := range nums {
+		cnt[x]++
+		maxCnt = max(maxCnt, cnt[x])
+	}
+
+	// 第二步：把出现次数相同的元素，放到同一个桶中
+	buckets := make([][]int, maxCnt+1)
+	for x, c := range cnt {
+		buckets[c] = append(buckets[c], x)
+	}
+
+	// 第三步：倒序遍历 buckets，把出现次数前 k 大的元素加入答案
+	ans := make([]int, 0, k) // 预分配空间
+	for i := maxCnt; i >= 0 && len(ans) < k; i-- {
+		ans = append(ans, buckets[i]...)
+	}
+	return ans
+}
