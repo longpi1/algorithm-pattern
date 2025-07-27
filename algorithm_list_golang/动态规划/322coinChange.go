@@ -26,6 +26,20 @@ import (
 输入：coins = [1], amount = 0
 输出：0
 */
+func coinChange(coins []int, amount int) int {
+	dp := make([][]int, amount)
+	for i := 0; i < amount; i++ {
+		dp[i] = make([]int, amount)
+	}
+	for i := 0; i < len(coins); i++ {
+		for j := coins[i]; j <= amount; j++ {
+
+			dp[i][j] = min(dp[i][j], dp[i-j][j]+1)
+		}
+	}
+	return dp[len(coins)-1][amount]
+}
+
 // 第一版错误代码
 func coinChange(coins []int, amount int) int {
 	result := make([][]int, len(coins))

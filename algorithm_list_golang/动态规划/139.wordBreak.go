@@ -22,6 +22,10 @@ import "fmt"
 输出: false
 */
 
+func wordBreak(s string, wordDict []string) bool {
+	dp := make()
+}
+
 // wordBreak 检查字符串s是否能被拆分为wordDict中的单词
 func wordBreak(s string, wordDict []string) bool {
 	wordDictSet := make(map[string]bool)

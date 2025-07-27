@@ -15,11 +15,42 @@ package main
 输出："bb"
 */
 
+func longestPalindrome(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+	longestStr := string(s[0])
+	for i := 0; i < len(s); i++ {
+		for j := i; j <= len(s); j++ {
+			if isPalindrome(s[i:j]) {
+				if len(s[i:j]) > len(longestStr) {
+					longestStr = s[i:j]
+				}
+			}
+		}
+	}
+	return longestStr
+}
+
+func isPalindrome(s string) bool {
+	left := 0
+	right := len(s) - 1
+	for left <= right {
+		if s[left] != s[right] {
+			return false
+		}
+		left++
+		right--
+	}
+	return true
+}
+
 // 动态规划
 /*
 这段代码使用了动态规划来查找最长回文子串。它创建了一个二维动态规划数组 dp，其中 dp[i][j] 表示从索引 i 到 j 的子串是否是回文子串。然后，通过遍历字符串 s 和填充 dp 数组，找到最长的回文子串的起始索引和长度，
 最后返回最长回文子串。这个方法的时间复杂度为 O(n^2)，适用于较长的字符串。
 */
+
 func longestPalindrome(s string) string {
 	n := len(s)
 	if n <= 1 {
@@ -59,7 +90,6 @@ func longestPalindrome(s string) string {
 	// 通过起始索引和最大长度截取最长回文子串并返回
 	return s[start : start+maxLength]
 }
-
 
 // 暴力破解
 func longestPalindrome(s string) string {
@@ -103,7 +133,6 @@ func isPalindrome(s string, left, right int) bool {
 	// 如果左右字符相等，是回文子串
 	return true
 }
-
 
 /*
 解题思路：
@@ -152,4 +181,3 @@ func expandAroundCenter(s string, left, right int) int {
 	// 返回回文子串的长度
 	return right - left - 1
 }
-
