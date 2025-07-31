@@ -19,6 +19,9 @@ package main
 
 */
 
+func longestConsecutive(nums []int) int {
+
+}
 
 func longestConsecutive(nums []int) int {
 	numSet := map[int]bool{} // 创建一个哈希集合来存储输入数组中的数字
@@ -30,7 +33,7 @@ func longestConsecutive(nums []int) int {
 	// 遍历哈希集合中的每个数字
 	for num := range numSet {
 		if !numSet[num-1] { // 如果当前数字的前一个数字不在哈希集合中
-			currentNum := num // 从当前数字开始
+			currentNum := num  // 从当前数字开始
 			currentStreak := 1 // 初始化当前连续序列的长度为1
 
 			// 继续查找下一个连续的数字

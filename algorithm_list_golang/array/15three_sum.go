@@ -35,17 +35,71 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
 [0, 0, 0, 0, 0, ..., 0, 0, 0]
 任意一个三元组的和都为 000。如果我们直接使用三重循环枚举三元组，会得到 O(N3)O(N^3)O(N
 3
- ) 个满足题目要求的三元组（其中 NNN 是数组的长度）时间复杂度至少为 O(N3)O(N^3)O(N
+
+	) 个满足题目要求的三元组（其中 NNN 是数组的长度）时间复杂度至少为 O(N3)O(N^3)O(N
+
 3
- )。在这之后，我们还需要使用哈希表进行去重操作，得到不包含重复三元组的最终答案，又消耗了大量的空间。这个做法的时间复杂度和空间复杂度都很高，因此我们要换一种思路来考虑这个问题。
+
+	)。在这之后，我们还需要使用哈希表进行去重操作，得到不包含重复三元组的最终答案，又消耗了大量的空间。这个做法的时间复杂度和空间复杂度都很高，因此我们要换一种思路来考虑这个问题。
 
 「不重复」的本质是什么？我们保持三重循环的大框架不变，只需要保证：
 
 第二重循环枚举到的元素不小于当前第一重循环枚举到的元素；
 
 第三重循环枚举到的元素不小于当前第二重循环枚举到的元素。
-
 */
+func threeSum(nums []int) [][]int {
+	// 1. 对数组进行排序
+	sort.Ints(nums)
+	n := len(nums)
+	result := make([][]int, 0)
+
+	// 2. 遍历数组，固定第一个数 a (nums[i])
+	// 注意边界，为 left 和 right 留出位置
+	for i := 0; i < n-2; i++ {
+		// a. 对第一个数 a 进行去重
+		// 如果当前数字和前一个数字相同，则跳过，避免产生重复的三元组
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+
+		// b. 初始化左右指针
+		left, right := i+1, n-1
+		target := -nums[i] // 目标和
+
+		// 3. 使用双指针在剩余部分寻找 b 和 c
+		for left < right {
+			sum := nums[left] + nums[right]
+
+			if sum < target {
+				// 和太小，左指针右移
+				left++
+			} else if sum > target {
+				// 和太大，右指针左移
+				right--
+			} else { // sum == target，找到了一个解
+				// a. 将解加入结果集
+				result = append(result, []int{nums[i], nums[left], nums[right]})
+
+				// b. 对 b 和 c 进行去重，这是你代码中缺失的关键部分
+				// 移动 left 指针，跳过所有重复的元素
+				for left < right && nums[left] == nums[left+1] {
+					left++
+				}
+				// 移动 right 指针，跳过所有重复的元素
+				for left < right && nums[right] == nums[right-1] {
+					right--
+				}
+
+				// c. 移动指针，寻找下一个可能的解
+				left++
+				right--
+			}
+		}
+	}
+
+	return result
+}
 func threeSum(nums []int) [][]int {
 	result := make([][]int, 0) // 用于存储结果的切片
 	n := len(nums)
@@ -79,15 +133,10 @@ func threeSum(nums []int) [][]int {
 	return result
 }
 
-
-func main(){
-	nums := []int{0,0,0,0}
+func main() {
+	nums := []int{0, 0, 0, 0}
 	threeSum(nums)
 }
-
-
-
-
 
 func containsList(lists [][]int, newList []int) bool {
 	for _, existingList := range lists {
@@ -169,35 +218,36 @@ func containsList(lists [][]int, newList []int) bool {
 func threeSum1(nums []int) [][]int {
 	var result [][]int
 	sort.Ints(nums)
-	for i := 0; i<len(nums); i++{
+	for i := 0; i < len(nums); i++ {
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
 		first := i
-		third := len(nums)-1
-		for second := i+1; second<len(nums); second++{
+		third := len(nums) - 1
+		for second := i + 1; second < len(nums); second++ {
 			// 需要和上一次枚举的数不相同
-			if second > first +1 &&  nums[second] == nums[second-1] {
+			if second > first+1 && nums[second] == nums[second-1] {
 				continue
 			}
 			// 需要保证 b 的指针在 c 的指针的左侧
-			for second < third && nums[second] + nums[third]+ nums[first] > 0 {
+			for second < third && nums[second]+nums[third]+nums[first] > 0 {
 				third--
 			}
-			if nums[first] + nums[second] + nums[third] == 0{
+			if nums[first]+nums[second]+nums[third] == 0 {
 				// 如果指针重合，随着 b 后续的增加
 				// 就不会有满足 a+b+c=0 并且 b<c 的 c 了，可以退出循环
 				if second == third {
 					break
 				}
-				temp := []int{nums[first],nums[second],nums[third]}
-				result = append(result,temp)
+				temp := []int{nums[first], nums[second], nums[third]}
+				result = append(result, temp)
 			}
 
 		}
 	}
 	return result
 }
+
 //
 //func main(){
 //	nums := []int{34,55,79,28,46,33,2,48,31,-3,84,71,52,-3,93,15,21,-43,57,-6,86,56,94,74,83,-14,28,-66,46,-49,62,-11,43,65,77,12,47,61,26,1,13,29,55,-82,76,26,15,-29,36,-29,10,-70,69,17,49}
